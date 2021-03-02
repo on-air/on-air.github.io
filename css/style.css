@@ -1,0 +1,141 @@
+/**
+ * xxx
+ *
+ * title
+ * description
+ * sub description
+ *
+ * xxx://xxx.xxx.xxx/xxx
+ */
+
+* { margin: 0px; padding: 0px; position: relative; box-sizing: border-box; -moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; }
+html, body { min-width: 100%; min-height: 100vh; font-family: sans-serif; color: black; background-color: white; cursor: default; } html [theme="abyss"] { color: white; background-color: black; }
+header, main, menu, nav, section, article, figure, footer { display: block; }
+template { display: none; }
+select, input, textarea, button { outline: none; vertical-align: sub; background: transparent; }
+a { color: blue; text-decoration: none; cursor: pointer; } a:hover {}
+ul {} li { list-style: none; list-style-type: none; }
+img { vertical-align: middle; }
+
+block, .block { display: block; } .block-inline { display: inline-block; } .inline { display: inline; }
+flex, .flex { display: flex; } .flex-box { display: flex; align-items: center; justify-content: center; } .flex-column { flex-direction: column; }
+grid, .grid { display: grid; }
+.table { display: table; } .table-column { display: table-cell; } .table-row { display: table-row; }
+.absolute { position: absolute; } .relative { position: relative; } .fixed { position: fixed; }
+.visible { visibility: visible; } .hidden { visibility: hidden; } .none { display: none; }
+.over { overflow: auto; } .mask { overflow: hidden; }
+.scroll { overflow: scroll; } .scroll-x { overflow-x: scroll; } .scroll-v { overflow-y: scroll; }
+
+.justify-content { text-align: justify; }
+.text-center { text-align: center; }
+.text-begin { text-align: left; }
+.text-end { text-align: right; }
+
+.align-item { align-items: center; } .align-begin { align-items: start; } .align-end { align-items: end; }
+.justify-item { justify-content: center; } .justify-begin { justify-content: start; } .justify-end { justify-content: end; }
+
+.x-port { min-width: 100%; }
+.v-port { min-height: 100vh; }
+.z-port { min-width: 100%; min-height: 100vh; }
+.x { width: 100%; }
+.v { height: 100%; }
+.z { width: 100%; height: 100%; }
+
+.transform-center { position: absolute; margin: 0px; top: 50%; transform: translateY(-50%); }
+.transform-rotate-up { transform: rotate(-135deg); }
+.transform-rotate-down { transform: rotate(45deg); }
+.transform-rotate-left { transform: rotate(135deg); }
+.transform-rotate-right { transform: rotate(-45deg); }
+
+/**
+ * xxx
+ *
+ * title
+ * description
+ * sub description
+ *
+ * xxx://xxx.xxx.xxx/xxx
+ */
+
+.font-thin { font-weight: 100; }
+.font-light-ultra { font-weight: 200; }
+.font-light { font-weight: 300; }
+.font-normal { font-weight: 400; }
+.font-bold-medium { font-weight: 500; }
+.font-bold-s { font-weight: 600; }
+.font-bold { font-weight: 700; }
+.font-bold-extra { font-weight: 800; }
+.font-bold-ultra { font-weight: 900; }
+
+.font-tiny { font-size: 10px; }
+.font-small { font-size: 12px; }
+.font-regular { font-size: 14px; }
+.font-medium { font-size: 16px; }
+.font-large { font-size: 20px; }
+.font-xl { font-size: 26px; }
+
+.font-color-black { color: black; } .background-color-black { background-color: black; }
+.font-color-white { color: white; } .background-color-white { background-color: white; }
+.font-color-gray { color: gray; } .background-color-gray { background-color: gray; }
+.font-color-red { color: red; } .background-color-red { background-color: red; }
+.font-color-green { color: green; } .background-color-green { background-color: green; }
+.font-color-blue { color: blue; } .background-color-blue { background-color: blue; }
+.font-color-cyan { color: cyan; } .background-color-cyan { background-color: cyan; }
+.font-color-magenta { color: magenta; } .background-color-magenta { background-color: magenta; }
+.font-color-yellow { color: yellow; } .background-color-yellow { background-color: yellow; }
+.font-color-orange { color: orange; } .background-color-orange { background-color: orange; }
+.font-color-pink { color: pink; } .background-color-pink { background-color: pink; }
+.font-color-purple { color: purple; } .background-color-purple { background-color: purple; }
+.font-color-brown { color: brown; } .background-color-brown { background-color: brown; }
+
+.margin { margin: 5px; }
+.margin-small { margin: 10px; }
+.margin-medium { margin: 15px; }
+.margin-large { margin: 20px; }
+
+.padding { padding: 5px; }
+.padding-small { padding: 10px; }
+.padding-medium { padding: 15px; }
+.padding-large { padding: 20px; }
+.padding-side { padding: 0px 5px; }
+.padding-side-small { padding: 0px 10px; }
+.padding-side-medium { padding: 0px 15px; }
+.padding-side-large { padding: 0px 20px; }
+
+.gap { gap: 5px; }
+.gap-small { gap: 10px; }
+.gap-medium { gap: 15px; }
+.gap-large { gap: 20px; }
+
+/**
+ * xxx
+ *
+ * title
+ * description
+ * sub description
+ *
+ * xxx://xxx.xxx.xxx/xxx
+ */
+
+[template="pop"] { display: none; position: absolute; top: 0px; left: 0px; min-width: 100%; min-height: 100vh; background-color: rgba(255, 255, 255, .75); z-index: 999; }
+[theme="abyss"] [template="pop"] { background-color: rgba(0, 0, 0, .75); }
+
+/**
+ * xxx
+ *
+ * title
+ * description
+ * sub description
+ *
+ * xxx://xxx.xxx.xxx/xxx
+ */
+
+@media (max-width: 800px) {}
+
+@media (max-width: 640px) {}
+
+/**
+ * the end
+ *
+ * xxx://xxx.xxx.xxx/xxx
+ */
