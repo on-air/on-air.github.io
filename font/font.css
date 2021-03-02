@@ -1,0 +1,16 @@
+@font-face { font-family: "Futura"; src: url("/font/futura/regular.woff2") format("woff2"); }
+@font-face { font-family: "Futura Light"; src: url("/font/futura/light.woff2") format("woff2"); }
+@font-face { font-family: "Futura Bold"; src: url("/font/futura/bold.woff2") format("woff2"); }
+
+@font-face { font-family: "Google"; src: url("/font/google/regular.woff2") format("woff2"); }
+@font-face { font-family: "Google M"; src: url("/font/google/medium.woff2") format("woff2"); }
+@font-face { font-family: "Material Icon"; font-style: normal; font-weight: 400; src: url(/font/google/material-icon/regular.woff2) format("woff2"); }
+@font-face { font-family: "Material Icon Line"; font-style: normal; font-weight: 400; src: url(/font/google/material-icon/line.woff2) format("woff2"); }
+@font-face { font-family: "Material Icon Round"; font-style: normal; font-weight: 400; src: url(/font/google/material-icon/round.woff2) format("woff2"); }
+@font-face { font-family: "Material Icon Sharp"; font-style: normal; font-weight: 400; src: url(/font/google/material-icon/sharp.woff2) format("woff2"); }
+@font-face { font-family: "Material Icon Tone"; font-style: normal; font-weight: 400; src: url(/font/google/material-icon/tone.woff2) format("woff2"); }
+.material-icon { font-family: "Material Icon"; font-weight: normal; font-style: normal; font-size: 24px; line-height: 1; letter-spacing: normal; text-transform: none; display: inline-block; white-space: nowrap; word-wrap: normal; direction: ltr; -moz-font-feature-settings: "liga"; -moz-osx-font-smoothing: grayscale; }
+.material-icon-line { font-family: "Material Icon Line"; font-weight: normal; font-style: normal; font-size: 24px; line-height: 1; letter-spacing: normal; text-transform: none; display: inline-block; white-space: nowrap; word-wrap: normal; direction: ltr; -moz-font-feature-settings: "liga"; -moz-osx-font-smoothing: grayscale; }
+.material-icon-round { font-family: "Material Icon Round"; font-weight: normal; font-style: normal; font-size: 24px; line-height: 1; letter-spacing: normal; text-transform: none; display: inline-block; white-space: nowrap; word-wrap: normal; direction: ltr; -moz-font-feature-settings: "liga"; -moz-osx-font-smoothing: grayscale; }
+.material-icon-sharp { font-family: "Material Icon Sharp"; font-weight: normal; font-style: normal; font-size: 24px; line-height: 1; letter-spacing: normal; text-transform: none; display: inline-block; white-space: nowrap; word-wrap: normal; direction: ltr; -moz-font-feature-settings: "liga"; -moz-osx-font-smoothing: grayscale; }
+.material-icon-tone { font-family: "Material Icon Tone"; font-weight: normal; font-style: normal; font-size: 24px; line-height: 1; letter-spacing: normal; text-transform: none; display: inline-block; white-space: nowrap; word-wrap: normal; direction: ltr; -moz-font-feature-settings: "liga"; -moz-osx-font-smoothing: grayscale; }
