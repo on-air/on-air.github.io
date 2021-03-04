@@ -1,4 +1,6 @@
 /**
+ * xxx
+ *
  * title
  * description
  * sub description
@@ -46,6 +48,8 @@ Define.class = function (proto, key, value, option) { return Define.value (proto
 Define.descriptor = function (key, value, option) { return Define.property (Define.properties.prototype, key, value, option) }
 
 /**
+ * xxx
+ *
  * title
  * description
  * sub description
@@ -119,6 +123,8 @@ Define (Object.to, "float", function (input) { if (Object.is.nan (input = parseF
 Define (Object.to, "boolean", function (input) { if (input) if (["false", "null", "undefined"].includes (input)) return false; else return true; else return false; });
 
 /**
+ * xxx
+ *
  * title
  * description
  * sub description
@@ -143,7 +149,45 @@ Define (Object.keys, "exist", function (key, object, offset) { return Object.key
 Define (Object.keys, "find", function (value, object) { for (var key in object) if (object [key] === value) return key; });
 Define (Object.keys, "format", function (object, format = "%s") { var data = {}; for (var key in object) data [format.format (key)] = object [key]; return data; });
 
+Define (Object, "argument", function (... option) {
+	var argument = {}
+	for (var i in option) {
+		if (Object.is.object (option [i])) argument.object = option [i];
+		else if (Object.is.array (option [i])) argument.array = option [i];
+		else if (Object.is.string (option [i])) argument.string = option [i];
+		else if (Object.is.integer (option [i])) argument.integer = option [i];
+		else if (Object.is.number (option [i])) argument.number = option [i];
+		else if (Object.is.function (option [i])) argument.function = option [i];
+		else argument.of = option [i];
+		}
+	return argument;
+	});
+
+Define (Object, "option", function (option, factory, configurable = true) {
+	if (configurable) return Object.concat (factory, option);
+	else return Object.concat (option, factory);
+	});
+
+Define (Object.option, "of", function (option, factory, configurable = true) {
+	if (configurable) return Object.merge (factory, option);
+	else return Object.merge (option, factory);
+	});
+
+Define (Object, "optional", function (option, factory = {}, configurable) {
+	if (configurable = {}) for (var i in option) if (i in factory) configurable [factory [i]] = option [i];
+	else configurable [i] = option [i];
+	return configurable;
+	});
+
+Define (Object.optional, "of", function (option, factory = {}, configurable) {
+	if (configurable = {}) if (factory = Object.flip (factory)) for (var i in option) if (i in factory) configurable [factory [i]] = option [i];
+	else configurable [i] = option [i];
+	return configurable;
+	});
+
 /**
+ * xxx
+ *
  * title
  * description
  * sub description
@@ -161,7 +205,7 @@ Define (Array.prototype, "end", function (value = "") { for (var i in this) valu
 Define (Array.prototype, "exist", function (value, offset) { return this.includes (value, offset); });
 Define (Array.prototype, "format", function (input, format) { var array; if (input = input.toString ()) for (var i in (array = Array.keys.format (this, format))) input = input.replace (array [i], format); return input; });
 Define (Array.prototype, "include", function (value, offset) { for (var i in value) if (this.includes (value [i], offset) === false) return false; return true; });
-Define (Array.prototype, "index", function (value, offset) { var array; if (Object.is.function (value)) array = this.slice (offset).findIndex (value); else array = this.indexOf (value, offset); return Function.util.index.of (array); });
+Define (Array.prototype, "index", function (value, offset) { var array; if (Object.is.function (value)) array = this.slice (offset).findIndex (value); else array = this.indexOf (value, offset); return index_of (array); });
 Define (Array.prototype, "insert", function (offset, ... value) { return this.splice (offset, 0, ... value); });
 Define (Array.prototype, "key", function () { var array = []; for (var [i] of this.entries ()) array.push (i); return array; });
 Define (Array.prototype, "max", function () { return Math.max (... this); });
@@ -182,6 +226,8 @@ Define (Array.keys, "find", function (value, array) { return array.findIndex (va
 Define (Array.keys, "format", function (array, format = "{%s}") { var data = []; for (var i in array) data.push (format.format (array [i])); return data; });
 
 /**
+ * xxx
+ *
  * title
  * description
  * sub description
@@ -195,9 +241,9 @@ Define (String.prototype, "number", function () { return Object.to.number (this)
 Define (String.prototype, "integer", function () { return Object.to.integer (this); });
 Define (String.prototype, "float", function () { return Object.to.float (this); });
 Define (String.prototype, "char", function () { return this.charCodeAt (); });
-Define (String.prototype, "md", function () { return Function.Crypto.md (this.toString ()).toString (); });
-Define (String.prototype, "sha", function () { return Function.Crypto.sha (this.toString ()).toString (); });
-Define (String.prototype, "__sha", function () { return Function.Crypto.__sha (this.toString ()).toString (); });
+Define (String.prototype, "md", function () { return Function.hash.md (this.toString ()).toString (); });
+Define (String.prototype, "sha", function () { return Function.hash.sha (this.toString ()).toString (); });
+Define (String.prototype, "__sha", function () { return Function.hash.__sha (this.toString ()).toString (); });
 Define (String.prototype, "after", function (input, offset) { if ((offset = this.indexOf (input, offset)) >= 0) return this.substr (offset + input.length); else return ""; });
 Define (String.prototype, "begin", function (length = 1, offset) { if (Object.is.string (length)) return this.startsWith (length, offset); else return this.substr (0, length); });
 Define (String.prototype, "before", function (input, offset) { if ((offset = this.indexOf (input, offset)) >= 0) return this.substr (0, offset); else return ""; });
@@ -210,7 +256,7 @@ Define (String.prototype, "end", function (length = 1, offset) { if (Object.is.s
 Define (String.prototype, "exist", function (input, offset) { return this.includes (input, offset); });
 Define (String.prototype, "format", function (... format) { return Function.util.format (this.toString (), ... format); });
 Define (String.prototype, "include", function (input, offset) { for (var i in input) if (this.includes (input [i], offset) === false) return false; return true; });
-Define (String.prototype, "index", function (input, offset) { return Function.util.index.of (this.indexOf (input, offset)); });
+Define (String.prototype, "index", function (input, offset) { return index_of (this.indexOf (input, offset)); });
 Define (String.prototype, "pad", function (input, length, pad = "begin") { if (pad === "begin") return this.padStart (length, input); else if (pad === "end") return this.padEnd (length, input); else return this; });
 Define (String.prototype, "pop", function (length = 1) { if (Object.is.string (length)) return this.substr (0, (this.length - length.length)) === length; else return this.substr (0, (this.length - length)); });
 Define (String.prototype, "pos", function (offset, length = 1) { return this.substr (offset, length); });
@@ -242,6 +288,8 @@ Define (String.char, "ln", {s: "\n", r: "\r", tab: "\t"});
 Define (String.char, "line", {r: "\r\n"});
 
 /**
+ * xxx
+ *
  * title
  * description
  * sub description
@@ -293,6 +341,8 @@ Define (Number, "float",  (1 / 2).toString ().substr (1, 1));
 new Number.BYTE;
 
 /**
+ * xxx
+ *
  * title
  * description
  * sub description
@@ -390,6 +440,8 @@ Define (Function, "Cookie", class Cookie {
 	});
 
 /**
+ * xxx
+ *
  * title
  * description
  * sub description
@@ -548,6 +600,8 @@ Object.defineProperty (Date, "properties", {
 	})
 
 /**
+ * xxx
+ *
  * title
  * description
  * sub description
@@ -773,6 +827,8 @@ Object.defineProperty (URL.fetch, "promise", {
 	});
 
 /**
+ * xxx
+ *
  * title
  * description
  * sub description
@@ -856,6 +912,8 @@ Object.defineProperty (Function.http.header, "status", {
 	});
 
 /**
+ * xxx
+ *
  * title
  * description
  * sub description
@@ -868,6 +926,8 @@ Object.defineProperty (Function.query, "selector", {value: function (key) { retu
 
 Object.defineProperty (Function, "attribute", {value: function () {}});
 Object.defineProperty (Function.attribute, "get", {value: function (key, dom) { if (dom) return dom.getAttribute (key) || ""; }});
+
+function index_of (input) { if (input >= 0) return input; }
 
 /**
  * the end
