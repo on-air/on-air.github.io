@@ -22,7 +22,7 @@ rm -rf /etc/nginx/sites-available/*
 rm -rf /etc/nginx/sites-enabled/*
 
 cd /tmp
-wget https://on-air.github.io/setup/firewall.rule
+wget https://git.netizen.ninja/shell/firewall.rule
 sudo mv /etc/ufw/before.rules /etc/ufw/before.rules.bak
 sudo cp /tmp/firewall.rule /etc/ufw/before.rules
 cd

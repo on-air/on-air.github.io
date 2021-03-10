@@ -1,3 +1,3 @@
 Hello World
 
-wget -qO- https://on-air.github.io/setup/express.sh | sudo -E bash -
+wget -qO- https://on-air.github.io/shell/express.sh | sudo -E bash -
