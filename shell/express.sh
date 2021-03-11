@@ -14,6 +14,7 @@ ln -s /snap/bin/certbot /usr/bin/certbot
 snap set certbot trust-plugin-with-root=ok
 
 mkdir /var/log/www
+mkdir /var/log/www-data
 mkdir /var/log/www/000-default
 rm -rf /var/www/*
 mkdir /var/www/000-default
