@@ -7,11 +7,11 @@ curl -sL https://deb.nodesource.com/setup_15.x | sudo -E bash -
 apt install -y nodejs
 npm install -g pm2
 npm install -g @vue/cli
-snap install core
-snap refresh core
-snap install certbot --classic
-ln -s /snap/bin/certbot /usr/bin/certbot
-snap set certbot trust-plugin-with-root=ok
+# snap install core
+# snap refresh core
+# snap install certbot --classic
+# ln -s /snap/bin/certbot /usr/bin/certbot
+# snap set certbot trust-plugin-with-root=ok
 
 mkdir /var/log/www
 mkdir /var/log/www-data
