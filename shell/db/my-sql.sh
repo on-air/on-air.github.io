@@ -70,7 +70,7 @@ echo -en "server {
 
 wget https://git.netizen.ninja/shell/db/my-sql.config -P /tmp/
 mv /etc/mysql/mysql.conf.d/mysqld.cnf /etc/mysql/mysql.conf.d/mysqld.cnf.bak
-cp /tmp/db-my-sql.config /etc/mysql/mysql.conf.d/mysqld.cnf
+cp /tmp/my-sql.config /etc/mysql/mysql.conf.d/mysqld.cnf
 
 wget https://files.phpmyadmin.net/phpMyAdmin/5.1.0/phpMyAdmin-5.1.0-all-languages.zip -P /tmp/
 unzip /tmp/phpMyAdmin-5.1.0-all-languages.zip -d /tmp/
