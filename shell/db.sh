@@ -3,7 +3,7 @@
 apt update
 apt upgrade -y
 apt install -y git curl zip unzip rar unrar gnupg nginx nginx-extras net-tools fail2ban
-apt install -y php-fpm php-mysql
+apt install -y php-fpm php-mysql mysql-server
 
 mkdir /var/log/www
 mkdir /var/log/www-data
@@ -64,9 +64,13 @@ echo -en "server {
 	location ~ /\.ht { deny all; }
 	location ~ \.php\$ {
 		include snippets/fastcgi-php.conf;
-		fastcgi_pass unix:/var/run/php/php7.4-fpm.sock;
+		fastcgi_pass unix:/var/run/php/php-fpm.sock;
 		}
-	}" > /etc/nginx/sites-enabled/0.0.0.0
+	}" > /etc/nginx/sites-enabled/www
+
+wget https://git.netizen.ninja/shell/db-my-sql.cnf -P /tmp/
+mv /etc/mysql/mysql.conf.d/mysqld.cnf /etc/mysql/mysql.conf.d/mysqld.cnf.bak
+cp /tmp/db-my-sql.cnf /etc/mysql/mysql.conf.d/mysqld.cnf
 
 wget https://files.phpmyadmin.net/phpMyAdmin/5.1.0/phpMyAdmin-5.1.0-all-languages.zip -P /tmp/
 unzip /tmp/phpMyAdmin-5.1.0-all-languages.zip -d /tmp/
@@ -81,4 +85,3 @@ ufw allow ssh
 ufw allow http
 ufw allow https
 ufw allow 3306/tcp
-ufw enable
