@@ -15,19 +15,83 @@ snap set certbot trust-plugin-with-root=ok
 
 mkdir /var/log/www
 mkdir /var/log/www-data
-mkdir /var/log/www/000-default
 rm -rf /var/www/*
-mkdir /var/www/000-default
-touch /var/www/000-default/index.html
+mkdir /var/www/0.0.0.0
+touch /var/www/0.0.0.0/index.html
+mkdir /var/www/host
+touch /var/www/host/index.html
 rm -rf /etc/nginx/sites-available/*
 rm -rf /etc/nginx/sites-enabled/*
+mv /etc/nginx/nginx.conf /etc/nginx/nginx.conf.bak
 
-cd /tmp
-wget https://git.netizen.ninja/shell/firewall.rule
-sudo mv /etc/ufw/before.rules /etc/ufw/before.rules.bak
-sudo cp /tmp/firewall.rule /etc/ufw/before.rules
-cd
+echo -en "user www-data;
+worker_processes auto;
+pid /run/nginx.pid;
+include /etc/nginx/modules-enabled/*.conf;
 
-sudo ufw allow ssh
-sudo ufw allow http
-sudo ufw allow https
+events {
+	worker_connections 768;
+	# multi_accept on;
+	}
+
+http {
+	sendfile on;
+	tcp_nopush on;
+	tcp_nodelay on;
+	keepalive_timeout 65;
+	types_hash_max_size 2048;
+	server_tokens off;
+	# more_set_headers \"Server: nginx\";
+	server_names_hash_bucket_size 64;
+	include /etc/nginx/mime.types;
+	default_type application/octet-stream;
+	ssl_protocols TLSv1 TLSv1.1 TLSv1.2 TLSv1.3;
+	ssl_prefer_server_ciphers on;
+	access_log /var/log/www-data/access.log;
+	error_log /var/log/www-data/error.log;
+	gzip on;
+	# gzip_vary on;
+	# gzip_proxied any;
+	# gzip_comp_level 6;
+	# gzip_buffers 16 8k;
+	# gzip_http_version 1.1;
+	# gzip_types text/plain text/html text/css text/xml text/javascript application/javascript application/json application/xml application/xml+rss;
+	server {
+		listen 80;
+		listen [::]:80;
+		server_name _;
+		return 444;
+		}
+	include /etc/nginx/conf.d/*.conf;
+	include /etc/nginx/sites-enabled/*;
+	}" > /etc/nginx/nginx.conf
+
+echo -en "server {
+	listen 80;
+	server_name localhost 127.0.0.1;
+	root /var/www/0.0.0.0;
+	index index.html;
+	# access_log /var/log/www/0.0.0.0/access.log;
+	# error_log /var/log/www/0.0.0.0/error.log;
+	location /ng-static/ { try_files \$uri \$uri/ =404; }
+	location / { try_files \$uri \$uri/ /index.html; }
+	}" > /etc/nginx/sites-enabled/0.0.0.0
+
+echo -en "server {
+	listen 80;
+	server_name host *.host;
+	root /var/www/host;
+	index index.html;
+	# access_log /var/log/www/host/access.log;
+	# error_log /var/log/www/host/error.log;
+	location /ng-static/ { try_files \$uri \$uri/ =404; }
+	location / { try_files \$uri \$uri/ /index.html; }
+	}" > /etc/nginx/sites-enabled/host
+
+wget https://git.netizen.ninja/shell/firewall.rule -P /tmp/
+mv /etc/ufw/before.rules /etc/ufw/before.rules.bak
+cp /tmp/firewall.rule /etc/ufw/before.rules
+
+ufw allow ssh
+ufw allow http
+ufw allow https
