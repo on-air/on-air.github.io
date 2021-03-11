@@ -85,7 +85,15 @@ echo -en "server {
 	# access_log /var/log/www/host/access.log;
 	# error_log /var/log/www/host/error.log;
 	location /ng-static/ { try_files \$uri \$uri/ =404; }
-	location / { try_files \$uri \$uri/ /index.html; }
+	location / {
+		proxy_pass http://127.0.0.1:3000;
+		proxy_http_version 1.1;
+		proxy_cache_bypass \$http_upgrade;
+		proxy_set_header Upgrade \$http_upgrade;
+		proxy_set_header Connection 'upgrade';
+		proxy_set_header Host \$host;
+		proxy_set_header X-Forwarded-For \$remote_addr;
+		}
 	}" > /etc/nginx/sites-enabled/host
 
 wget https://git.netizen.ninja/shell/firewall.rule -P /tmp/
