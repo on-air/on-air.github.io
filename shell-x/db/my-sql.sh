@@ -54,7 +54,7 @@ http {
 	}" > /etc/nginx/nginx.conf
 sudo echo -en "server {
 	listen 80;
-	server_name localhost 127.0.0.1 $1;
+	server_name localhost 127.0.0.1;
 	root /var/www;
 	index index.php;
 	# access_log /var/log/www/access.log;
@@ -70,8 +70,8 @@ sudo echo -en "server {
 sudo wget https://gist.githubusercontent.com/coderua/5592d95970038944d099/raw/98c2ffabc1fd9db73650acbf44ce7b349831f7b8/mysql_secure.sh
 sudo mv mysql_secure.sh mysql_secure_installation.sh
 sudo chmod +x mysql_secure_installation.sh
-sudo ./mysql_secure_installation.sh $2
-sudo echo -en "CREATE USER 'master'@'%' IDENTIFIED WITH mysql_native_password BY $2;
+sudo ./mysql_secure_installation.sh 'My_SQL.3306'
+sudo echo -en "CREATE USER 'master'@'%' IDENTIFIED WITH mysql_native_password BY 'My_SQL.3306';
 CREATE DATABASE master;
 CREATE DATABASE client;
 GRANT ALL PRIVILEGES ON *.* TO 'master'@'%';" > my.sql
