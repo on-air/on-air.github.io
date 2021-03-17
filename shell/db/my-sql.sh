@@ -2,7 +2,7 @@
 
 apt update
 apt upgrade -y
-apt install -y git curl zip unzip rar unrar gnupg nginx nginx-extras net-tools fail2ban
+apt install -y aptitude git curl zip unzip rar unrar gnupg nginx nginx-extras net-tools fail2ban expect
 apt install -y php-fpm php-mbstring php-gettext php-mysql mysql-server
 
 mkdir /var/log/www
