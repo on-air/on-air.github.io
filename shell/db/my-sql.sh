@@ -54,7 +54,7 @@ http {
 	}" > /etc/nginx/nginx.conf
 echo -en "server {
 	listen 80;
-	server_name localhost 127.0.0.1 $1;
+	server_name localhost 127.0.0.1;
 	root /var/www;
 	index index.php;
 	# access_log /var/log/www/access.log;
@@ -68,9 +68,9 @@ echo -en "server {
 	}" > /etc/nginx/sites-enabled/www
 
 wget https://raw.githubusercontent.com/on-air/on-air.github.io/master/shell/db/mysql_secure_installation.sh
-sudo chmod +x mysql_secure_installation.sh
-sudo ./mysql_secure_installation.sh '$2'
-echo -en "CREATE USER 'master'@'%' IDENTIFIED WITH mysql_native_password BY '$2';
+chmod +x mysql_secure_installation.sh
+./mysql_secure_installation.sh 'My_SQL.3306'
+echo -en "CREATE USER 'master'@'%' IDENTIFIED WITH mysql_native_password BY 'My_SQL.3306';
 CREATE DATABASE master;
 CREATE DATABASE client;
 GRANT ALL PRIVILEGES ON *.* TO 'master'@'%';" > my.sql
