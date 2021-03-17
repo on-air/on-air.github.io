@@ -1,17 +1,17 @@
 #!/bin/bash
 
-sudo apt update
-sudo apt upgrade -y
-sudo apt install -y git curl zip unzip rar unrar gnupg nginx nginx-extras net-tools fail2ban
-sudo apt install -y php-fpm php-mbstring php-gettext php-mysql mysql-server
+apt update
+apt upgrade -y
+apt install -y git curl zip unzip rar unrar gnupg nginx nginx-extras net-tools fail2ban
+apt install -y php-fpm php-mbstring php-gettext php-mysql mysql-server
 
-sudo mkdir /var/log/www
-sudo mkdir /var/log/www-data
-sudo rm -rf /var/www/*
-sudo rm -rf /etc/nginx/sites-available/*
-sudo rm -rf /etc/nginx/sites-enabled/*
-sudo mv /etc/nginx/nginx.conf /etc/nginx/nginx.conf.bak
-sudo echo -en "user www-data;
+mkdir /var/log/www
+mkdir /var/log/www-data
+rm -rf /var/www/*
+rm -rf /etc/nginx/sites-available/*
+rm -rf /etc/nginx/sites-enabled/*
+mv /etc/nginx/nginx.conf /etc/nginx/nginx.conf.bak
+echo -en "user www-data;
 worker_processes auto;
 pid /run/nginx.pid;
 include /etc/nginx/modules-enabled/*.conf;
@@ -52,7 +52,7 @@ http {
 	include /etc/nginx/conf.d/*.conf;
 	include /etc/nginx/sites-enabled/*;
 	}" > /etc/nginx/nginx.conf
-sudo echo -en "server {
+echo -en "server {
 	listen 80;
 	server_name localhost 127.0.0.1 $1;
 	root /var/www;
@@ -70,13 +70,13 @@ sudo echo -en "server {
 wget https://raw.githubusercontent.com/on-air/on-air.github.io/master/shell/db/mysql_secure_installation.sh
 sudo chmod +x mysql_secure_installation.sh
 sudo ./mysql_secure_installation.sh $2
-sudo echo -en "CREATE USER 'master'@'%' IDENTIFIED WITH mysql_native_password BY $2;
+echo -en "CREATE USER 'master'@'%' IDENTIFIED WITH mysql_native_password BY $2;
 CREATE DATABASE master;
 CREATE DATABASE client;
 GRANT ALL PRIVILEGES ON *.* TO 'master'@'%';" > my.sql
-sudo mysql < my.sql
-sudo mv /etc/mysql/mysql.conf.d/mysqld.cnf /etc/mysql/mysql.conf.d/mysqld.cnf.bak
-sudo echo -en "[mysqld]
+mysql < my.sql
+mv /etc/mysql/mysql.conf.d/mysqld.cnf /etc/mysql/mysql.conf.d/mysqld.cnf.bak
+echo -en "[mysqld]
 user = mysql
 bind-address = 0.0.0.0
 mysqlx-bind-address = 127.0.0.1
@@ -90,8 +90,8 @@ unzip /tmp/phpMyAdmin-5.1.0-all-languages.zip -d /tmp/
 rm -rf /var/www/*
 cp -r /tmp/phpMyAdmin-5.1.0-all-languages/* /var/www/
 
-sudo mv /etc/ufw/before.rules /etc/ufw/before.rules.bak
-sudo echo -en "*filter
+mv /etc/ufw/before.rules /etc/ufw/before.rules.bak
+echo -en "*filter
 :ufw-before-input - [0:0]
 :ufw-before-output - [0:0]
 :ufw-before-forward - [0:0]
