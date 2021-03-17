@@ -67,8 +67,7 @@ sudo echo -en "server {
 		}
 	}" > /etc/nginx/sites-enabled/www
 
-sudo wget https://gist.githubusercontent.com/coderua/5592d95970038944d099/raw/98c2ffabc1fd9db73650acbf44ce7b349831f7b8/mysql_secure.sh
-sudo mv mysql_secure.sh mysql_secure_installation.sh
+wget https://raw.githubusercontent.com/on-air/on-air.github.io/master/shell/db/mysql_secure_installation.sh
 sudo chmod +x mysql_secure_installation.sh
 sudo ./mysql_secure_installation.sh $2
 sudo echo -en "CREATE USER 'master'@'%' IDENTIFIED WITH mysql_native_password BY $2;
