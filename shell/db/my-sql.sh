@@ -69,8 +69,8 @@ echo -en "server {
 
 wget https://raw.githubusercontent.com/on-air/on-air.github.io/master/shell/db/mysql_secure_installation.sh
 sudo chmod +x mysql_secure_installation.sh
-sudo ./mysql_secure_installation.sh $2
-echo -en "CREATE USER 'master'@'%' IDENTIFIED WITH mysql_native_password BY $2;
+sudo ./mysql_secure_installation.sh '$2'
+echo -en "CREATE USER 'master'@'%' IDENTIFIED WITH mysql_native_password BY '$2';
 CREATE DATABASE master;
 CREATE DATABASE client;
 GRANT ALL PRIVILEGES ON *.* TO 'master'@'%';" > my.sql
