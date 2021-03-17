@@ -3,7 +3,7 @@
 apt update
 apt upgrade -y
 apt install -y aptitude git curl zip unzip rar unrar gnupg nginx nginx-extras net-tools fail2ban expect
-apt install -y php-fpm php-mbstring php-gettext php-mcrypt php-mysql mysql-server
+apt install -y mysql-server
 
 mkdir /var/log/www
 mkdir /var/log/www-data
