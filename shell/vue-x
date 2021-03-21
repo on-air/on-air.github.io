@@ -45,45 +45,45 @@ elif [ "$1" == "generate" ]
 			fi
 echo -en "<!DOCTYPE html>
 <html lang=\"en\">
-	<head>
-		<meta charset=\"UTF-8\">
-		<meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\">
-		<!--meta http-equiv=\"Content-Security-Policy\" content=\"script-src 'self' 'unsafe-inline'\"-->
-		<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0\">
-		<meta name=\"generator\" content=\"\">
-		<meta name=\"description\" content=\"\">
-		<meta property=\"api:url\" content=\"$url\">
-		<meta property=\"api:token\" content=\"$token\">
-		<!--meta property=\"og:type\" content=\"\"-->
-		<!--meta property=\"og:title\" content=\"\"-->
-		<!--meta property=\"og:description\" content=\"\"-->
-		<!--meta property=\"og:url\" content=\"\"-->
-		<!--meta property=\"og:site_name\" content=\"\"-->
-		<!--meta property=\"og:image\" content=\"\"-->
-		<link rel=\"icon\" href=\"/image/icon/favorite.ico\" type=\"image/x-icon\">
-		<link rel=\"canonical\" href=\"https://netizen.ninja\">
-		<link rel=\"preconnect\" href=\"https://netizen.ninja\" crossorigin>
-		<link rel=\"preconnect\" href=\"https://analytic.netizen.ninja\" crossorigin>
-		<link rel=\"preconnect\" href=\"https://fonts.gstatic.com\" crossorigin>
-		<link rel=\"preconnect\" href=\"https://fonts.googleapis.com\" crossorigin>
-		<link rel=\"stylesheet\" href=\"https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap\" crossorigin>
-		<link rel=\"stylesheet\" href=\"https://fonts.googleapis.com/css2?family=Redressed&display=swap\" crossorigin>
-		<link rel=\"stylesheet\" href=\"https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap\" crossorigin>
-		<link rel=\"stylesheet\" href=\"https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap\" crossorigin>
-		<link rel=\"stylesheet\" href=\"https://fonts.googleapis.com/icon?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Round|Material+Icons+Sharp|Material+Icons+Two+Tone\" crossorigin>
-		<link rel=\"stylesheet\" href=\"/font/font.css\">
-		<link rel=\"stylesheet\" href=\"/css/style.css\">
-		<script src=\"/js/script.js\"></script>
-		<!--script src=\"/js/plugin/hash/core.js\"></script-->
-		<!--script src=\"/js/plugin/hash/md.js\"></script-->
-		<!--script src=\"/js/plugin/hash/sha.js\"></script-->
-		<!--script src=\"/js/plugin/hash/sha-x.js\"></script-->
-		<!--script src=\"/js/plugin/hash.js\"></script-->
-	</head>
-	<body theme=\"regular\">
-		<noscript>JavaScript Error</noscript>
-		<div id=\"app\"></div>
-	</body>
+\t<head>
+\t\t<meta charset=\"UTF-8\">
+\t\t<meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\">
+\t\t<!--meta http-equiv=\"Content-Security-Policy\" content=\"script-src 'self' 'unsafe-inline'\"-->
+\t\t<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0\">
+\t\t<meta name=\"generator\" content=\"\">
+\t\t<meta name=\"description\" content=\"\">
+\t\t<meta property=\"api:url\" content=\"$url\">
+\t\t<meta property=\"api:token\" content=\"$token\">
+\t\t<!--meta property=\"og:type\" content=\"\"-->
+\t\t<!--meta property=\"og:title\" content=\"\"-->
+\t\t<!--meta property=\"og:description\" content=\"\"-->
+\t\t<!--meta property=\"og:url\" content=\"\"-->
+\t\t<!--meta property=\"og:site_name\" content=\"\"-->
+\t\t<!--meta property=\"og:image\" content=\"\"-->
+\t\t<link rel=\"icon\" href=\"/image/icon/favorite.ico\" type=\"image/x-icon\">
+\t\t<link rel=\"canonical\" href=\"https://netizen.ninja\">
+\t\t<link rel=\"preconnect\" href=\"https://netizen.ninja\" crossorigin>
+\t\t<link rel=\"preconnect\" href=\"https://analytic.netizen.ninja\" crossorigin>
+\t\t<link rel=\"preconnect\" href=\"https://fonts.gstatic.com\" crossorigin>
+\t\t<link rel=\"preconnect\" href=\"https://fonts.googleapis.com\" crossorigin>
+\t\t<link rel=\"stylesheet\" href=\"https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap\" crossorigin>
+\t\t<link rel=\"stylesheet\" href=\"https://fonts.googleapis.com/css2?family=Redressed&display=swap\" crossorigin>
+\t\t<link rel=\"stylesheet\" href=\"https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap\" crossorigin>
+\t\t<link rel=\"stylesheet\" href=\"https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap\" crossorigin>
+\t\t<link rel=\"stylesheet\" href=\"https://fonts.googleapis.com/icon?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Round|Material+Icons+Sharp|Material+Icons+Two+Tone\" crossorigin>
+\t\t<link rel=\"stylesheet\" href=\"/font/font.css\">
+\t\t<link rel=\"stylesheet\" href=\"/css/style.css\">
+\t\t<script src=\"/js/script.js\"></script>
+\t\t<!--script src=\"/js/plugin/hash/core.js\"></script-->
+\t\t<!--script src=\"/js/plugin/hash/md.js\"></script-->
+\t\t<!--script src=\"/js/plugin/hash/sha.js\"></script-->
+\t\t<!--script src=\"/js/plugin/hash/sha-x.js\"></script-->
+\t\t<!--script src=\"/js/plugin/hash.js\"></script-->
+\t</head>
+\t<body theme=\"regular\">
+\t\t<noscript>JavaScript Error</noscript>
+\t\t<div id=\"app\"></div>
+\t</body>
 </html>" > node_sites/$2/public/index.html
 elif [ "$1" == "cloud" ]
 then
@@ -110,6 +110,13 @@ touch /var/www/$2/index.html
 rm -rf /etc/nginx/sites-available/*
 rm -rf /etc/nginx/sites-enabled/*
 mv /etc/nginx/nginx.conf /etc/nginx/nginx.conf.bak
+
+mkdir app
+echo -en "const http = require (\"http\")
+var app = http.createServer (function (request, response) {
+\tresponse.end (\"...\")
+\t})
+app.listen (3000, \"0.0.0.0\")" > app/package.js
 
 echo -en "user www-data;
 worker_processes auto;
