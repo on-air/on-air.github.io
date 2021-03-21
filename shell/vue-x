@@ -85,7 +85,24 @@ echo -en "<!DOCTYPE html>
 \t\t<div id=\"app\"></div>
 \t</body>
 </html>" > node_sites/$2/public/index.html
-elif [ "$1" == "cloud" ]
+elif [ "$1" == "install" ] && [ "$2" == "my-sql" ]
+then
+apt update
+apt upgrade -y
+apt install -y aptitude git curl zip unzip rar unrar gnupg net-tools fail2ban expect
+apt install -y mysql-server
+
+wget https://git.netizen.ninja/shell/db/my-sql.config -P /tmp/
+sudo mv /etc/mysql/mysql.conf.d/mysqld.cnf /etc/mysql/mysql.conf.d/mysqld.cnf.bak
+sudo cp /tmp/my-sql.config /etc/mysql/mysql.conf.d/mysqld.cnf
+
+wget https://git.netizen.ninja/shell/firewall.rule -P /tmp/
+mv /etc/ufw/before.rules /etc/ufw/before.rules.bak
+cp /tmp/firewall.rule /etc/ufw/before.rules
+
+ufw allow ssh
+ufw allow 3306/tcp
+elif [ "$1" == "install" ]
 then
 apt update
 apt upgrade -y
@@ -197,23 +214,6 @@ cp /tmp/firewall.rule /etc/ufw/before.rules
 ufw allow ssh
 ufw allow http
 ufw allow https
-elif [ "$1" == "my-sql" ]
-then
-apt update
-apt upgrade -y
-apt install -y aptitude git curl zip unzip rar unrar gnupg net-tools fail2ban expect
-apt install -y mysql-server
-
-wget https://git.netizen.ninja/shell/db/my-sql.config -P /tmp/
-sudo mv /etc/mysql/mysql.conf.d/mysqld.cnf /etc/mysql/mysql.conf.d/mysqld.cnf.bak
-sudo cp /tmp/my-sql.config /etc/mysql/mysql.conf.d/mysqld.cnf
-
-wget https://git.netizen.ninja/shell/firewall.rule -P /tmp/
-mv /etc/ufw/before.rules /etc/ufw/before.rules.bak
-cp /tmp/firewall.rule /etc/ufw/before.rules
-
-ufw allow ssh
-ufw allow 3306/tcp
 elif [ "$1" == "stop" ] && [ "$2" == "" ]
 then
 sudo pm2 stop all
