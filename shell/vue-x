@@ -1,0 +1,233 @@
+#!/bin/bash
+
+if [ "$1" == "create" ]
+then
+cp -r ../repository/app $2
+elif [ "$1" == "clone" ]
+then
+cp -r ../../repository/vue node_sites/$2
+echo -en "{
+\"name\": \"$2\",
+\"version\": \"0.0.0-0\",
+\"private\": true,
+\"scripts\": {
+\t\"start\": \"vue-cli-service serve\",
+\t\"build\": \"vue-cli-service build --dest live && node ../../package.c\"
+\t},
+\"dependencies\": {
+\t\"core-js\": \"^3.6.5\",
+\t\"vue\": \"^3.0.0\",
+\t\"vue-router\": \"^4.0.0-0\",
+\t\"vue.min.js\": \"^5.0.0-0\",
+\t\"vuex\": \"^4.0.0-0\"
+\t},
+\"devDependencies\": {
+\t\"@vue/cli-plugin-babel\": \"~4.5.0\",
+\t\"@vue/cli-plugin-router\": \"~4.5.0\",
+\t\"@vue/cli-plugin-vuex\": \"~4.5.0\",
+\t\"@vue/cli-service\": \"~4.5.0\",
+\t\"@vue/compiler-sfc\": \"^3.0.0\",
+\t\"less\": \"^3.0.4\",
+\t\"less-loader\": \"^5.0.0\"
+\t}
+}" > node_sites/$2/package.json
+elif [ "$1" == "generate" ]
+	then
+		url="http://127.0.0.1"
+		token="*"
+		if [ "$3" != "" ]
+			then
+				url=$3
+			fi
+		if [ "$4" != "" ]
+			then
+				token=$4
+			fi
+echo -en "<!DOCTYPE html>
+<html lang=\"en\">
+	<head>
+		<meta charset=\"UTF-8\">
+		<meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge\">
+		<!--meta http-equiv=\"Content-Security-Policy\" content=\"script-src 'self' 'unsafe-inline'\"-->
+		<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0\">
+		<meta name=\"generator\" content=\"\">
+		<meta name=\"description\" content=\"\">
+		<meta property=\"api:url\" content=\"$url\">
+		<meta property=\"api:token\" content=\"$token\">
+		<!--meta property=\"og:type\" content=\"\"-->
+		<!--meta property=\"og:title\" content=\"\"-->
+		<!--meta property=\"og:description\" content=\"\"-->
+		<!--meta property=\"og:url\" content=\"\"-->
+		<!--meta property=\"og:site_name\" content=\"\"-->
+		<!--meta property=\"og:image\" content=\"\"-->
+		<link rel=\"icon\" href=\"/image/icon/favorite.ico\" type=\"image/x-icon\">
+		<link rel=\"canonical\" href=\"https://netizen.ninja\">
+		<link rel=\"preconnect\" href=\"https://netizen.ninja\" crossorigin>
+		<link rel=\"preconnect\" href=\"https://analytic.netizen.ninja\" crossorigin>
+		<link rel=\"preconnect\" href=\"https://fonts.gstatic.com\" crossorigin>
+		<link rel=\"preconnect\" href=\"https://fonts.googleapis.com\" crossorigin>
+		<link rel=\"stylesheet\" href=\"https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap\" crossorigin>
+		<link rel=\"stylesheet\" href=\"https://fonts.googleapis.com/css2?family=Redressed&display=swap\" crossorigin>
+		<link rel=\"stylesheet\" href=\"https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap\" crossorigin>
+		<link rel=\"stylesheet\" href=\"https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap\" crossorigin>
+		<link rel=\"stylesheet\" href=\"https://fonts.googleapis.com/icon?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Round|Material+Icons+Sharp|Material+Icons+Two+Tone\" crossorigin>
+		<link rel=\"stylesheet\" href=\"/font/font.css\">
+		<link rel=\"stylesheet\" href=\"/css/style.css\">
+		<script src=\"/js/script.js\"></script>
+		<!--script src=\"/js/plugin/hash/core.js\"></script-->
+		<!--script src=\"/js/plugin/hash/md.js\"></script-->
+		<!--script src=\"/js/plugin/hash/sha.js\"></script-->
+		<!--script src=\"/js/plugin/hash/sha-x.js\"></script-->
+		<!--script src=\"/js/plugin/hash.js\"></script-->
+	</head>
+	<body theme=\"regular\">
+		<noscript>JavaScript Error</noscript>
+		<div id=\"app\"></div>
+	</body>
+</html>" > node_sites/$2/public/index.html
+elif [ "$1" == "cloud" ]
+then
+apt update
+apt upgrade -y
+apt install -y aptitude git curl zip unzip rar unrar gnupg nginx nginx-extras net-tools fail2ban expect
+curl -sL https://deb.nodesource.com/setup_15.x | sudo -E bash -
+apt install -y nodejs
+npm install -g pm2
+npm install -g @vue/cli
+# snap install core
+# snap refresh core
+# snap install certbot --classic
+# ln -s /snap/bin/certbot /usr/bin/certbot
+# snap set certbot trust-plugin-with-root=ok
+
+mkdir /var/log/www
+mkdir /var/log/www-data
+rm -rf /var/www/*
+mkdir /var/www/127.0.0.1
+touch /var/www/127.0.0.1/index.html
+mkdir /var/www/$2
+touch /var/www/$2/index.html
+rm -rf /etc/nginx/sites-available/*
+rm -rf /etc/nginx/sites-enabled/*
+mv /etc/nginx/nginx.conf /etc/nginx/nginx.conf.bak
+
+echo -en "user www-data;
+worker_processes auto;
+pid /run/nginx.pid;
+include /etc/nginx/modules-enabled/*.conf;
+
+events {
+\tworker_connections 768;
+\t# multi_accept on;
+\t}
+
+http {
+\tsendfile on;
+\ttcp_nopush on;
+\ttcp_nodelay on;
+\tkeepalive_timeout 65;
+\ttypes_hash_max_size 2048;
+\tserver_tokens off;
+\t# more_set_headers \"Server: nginx\";
+\tserver_names_hash_bucket_size 64;
+\tinclude /etc/nginx/mime.types;
+\tdefault_type application/octet-stream;
+\tssl_protocols TLSv1 TLSv1.1 TLSv1.2 TLSv1.3;
+\tssl_prefer_server_ciphers on;
+\taccess_log /var/log/www-data/access.log;
+\terror_log /var/log/www-data/error.log;
+\tgzip on;
+\t# gzip_vary on;
+\t# gzip_proxied any;
+\t# gzip_comp_level 6;
+\t# gzip_buffers 16 8k;
+\t# gzip_http_version 1.1;
+\t# gzip_types text/plain text/html text/css text/xml text/javascript application/javascript application/json application/xml application/xml+rss;
+\tserver {
+\t\tlisten 80;
+\t\tlisten [::]:80;
+\t\tserver_name _;
+\t\treturn 444;
+\t\t}
+\tinclude /etc/nginx/conf.d/*.conf;
+\tinclude /etc/nginx/sites-enabled/*;
+\t}" > /etc/nginx/nginx.conf
+
+echo -en "server {
+\tlisten 80;
+\tserver_name 127.0.0.1;
+\troot /var/www/127.0.0.1;
+\tindex index.html;
+\t# access_log /var/log/www/127.0.0.1/access.log;
+\t# error_log /var/log/www/127.0.0.1/error.log;
+\tlocation /ng-static/ { try_files \$uri \$uri/ =404; }
+\tlocation / { try_files \$uri \$uri/ /index.html; }
+\t}" > /etc/nginx/sites-enabled/127.0.0.1
+
+echo -en "server {
+\tlisten 80;
+\tserver_name $2 *.$2;
+\troot /var/www/$2;
+\tindex index.html;
+\t# access_log /var/log/www/$2/access.log;
+\t# error_log /var/log/www/$2/error.log;
+\tlocation /ng-static/ { try_files \$uri \$uri/ =404; }
+\tlocation / {
+\t\tproxy_pass http://127.0.0.1:3000;
+\t\tproxy_http_version 1.1;
+\t\tproxy_cache_bypass \$http_upgrade;
+\t\tproxy_set_header Upgrade \$http_upgrade;
+\t\tproxy_set_header Connection 'upgrade';
+\t\tproxy_set_header Host \$host;
+\t\tproxy_set_header X-Forwarded-For \$remote_addr;
+\t\t}
+\t}" > /etc/nginx/sites-enabled/$2
+
+wget https://git.netizen.ninja/shell/firewall.rule -P /tmp/
+mv /etc/ufw/before.rules /etc/ufw/before.rules.bak
+cp /tmp/firewall.rule /etc/ufw/before.rules
+
+ufw allow ssh
+ufw allow http
+ufw allow https
+elif [ "$1" == "my-sql" ]
+then
+apt update
+apt upgrade -y
+apt install -y aptitude git curl zip unzip rar unrar gnupg net-tools fail2ban expect
+apt install -y mysql-server
+
+wget https://git.netizen.ninja/shell/db/my-sql.config -P /tmp/
+sudo mv /etc/mysql/mysql.conf.d/mysqld.cnf /etc/mysql/mysql.conf.d/mysqld.cnf.bak
+sudo cp /tmp/my-sql.config /etc/mysql/mysql.conf.d/mysqld.cnf
+
+wget https://git.netizen.ninja/shell/firewall.rule -P /tmp/
+mv /etc/ufw/before.rules /etc/ufw/before.rules.bak
+cp /tmp/firewall.rule /etc/ufw/before.rules
+
+ufw allow ssh
+ufw allow 3306/tcp
+elif [ "$1" == "stop" ] && [ "$2" == "" ]
+then
+sudo pm2 stop all
+elif [ "$1" == "stop" ]
+then
+sudo pm2 stop $2
+elif [ "$1" == "start" ] && [ "$2" == "" ]
+then
+sudo pm2 stop all
+sudo pm2 start all
+elif [ "$1" == "start" ] && [ "$2" == "up" ]
+then
+sudo pm2 save
+sudo pm2 startup
+elif [ "$1" == "start" ]
+then
+sudo pm2 start npm --name "$2" -- start
+elif [ "$1" == "save" ]
+then
+sudo pm2 save
+elif [ "$1" == "resume" ]
+then
+sudo pm2 resurrect
+fi
