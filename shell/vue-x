@@ -214,12 +214,6 @@ cp /tmp/firewall.rule /etc/ufw/before.rules
 ufw allow ssh
 ufw allow http
 ufw allow https
-elif [ "$1" == "stop" ] && [ "$2" == "" ]
-then
-sudo pm2 stop all
-elif [ "$1" == "stop" ]
-then
-sudo pm2 stop $2
 elif [ "$1" == "start" ] && [ "$2" == "" ]
 then
 sudo pm2 stop all
@@ -231,6 +225,12 @@ sudo pm2 startup
 elif [ "$1" == "start" ]
 then
 sudo pm2 start $2
+elif [ "$1" == "stop" ] && [ "$2" == "" ]
+then
+sudo pm2 stop all
+elif [ "$1" == "stop" ]
+then
+sudo pm2 stop $2
 elif [ "$1" == "run" ]
 then
 sudo pm2 start npm --name "$2" -- start
