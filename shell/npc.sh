@@ -21,6 +21,8 @@ elif [ "$1" == "update" ] && [ "$2" == "repository" ]
 	then
 		if [ "$3" != "" ]
 			then
+				rm -rf /var/node/node_modules/*
+				rm -rf /var/node/node_packages/*
 				rm /tmp/node.rar
 				rm /tmp/vue.rar
 				wget -P /tmp/ https://cd.netizen.ninja/shell/node.rar
@@ -37,11 +39,11 @@ elif [ "$1" == "vue" ] && [ "$2" == "init" ]
 	then
 		if [ "$3" != "" ]
 			then
+				rm -rf app/$3
 				mkdir app/$3
 				cp -r /var/node/node_packages/cgi-bin app/$3/cgi-bin
 				cp -r /var/node/node_packages/cgi-public app/$3/cgi-public
-				mv app/$3/cgi-public/default app/$3/cgi-public/www
-				cd app/$3/cgi-public/www
+				cd app/$3/cgi-public/default
 		else
 			echo "app --name"
 		fi
