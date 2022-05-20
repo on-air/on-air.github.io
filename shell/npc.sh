@@ -21,10 +21,10 @@ elif [ "$1" == "update" ] && [ "$2" == "repository" ]
 	then
 		if [ "$3" != "" ]
 			then
-				rm /tmp/node.zip
-				rm /tmp/vue.zip
-				wget -P /tmp/ https://cd.netizen.ninja/shell/node.zip
-				wget -P /tmp/ https://cd.netizen.ninja/shell/vue.zip
+				rm /tmp/node.rar
+				rm /tmp/vue.rar
+				wget -P /tmp/ https://cd.netizen.ninja/shell/node.rar
+				wget -P /tmp/ https://cd.netizen.ninja/shell/vue.rar
 				unrar -p$3 /tmp/node.rar -d /var/node/node_modules
 				unrar -P$3 /tmp/vue.rar -d /var/node/node_packages
 		else
