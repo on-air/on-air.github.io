@@ -25,10 +25,10 @@ elif [ "$1" == "update" ] && [ "$2" == "repository" ]
 				rm /tmp/vue.zip
 				wget -P /tmp/ https://cd.netizen.ninja/shell/node.zip
 				wget -P /tmp/ https://cd.netizen.ninja/shell/vue.zip
-				unzip -P $3 /tmp/node.zip -d /var/node/node_modules
-				unzip -P $3 /tmp/vue.zip -d /var/node/node_packages
+				unrar -p$3 /tmp/node.rar -d /var/node/node_modules
+				unrar -P$3 /tmp/vue.rar -d /var/node/node_packages
 		else
-			echo "unzip --password"
+			echo "unrar --password"
 		fi
 elif [ "$1" == "update" ]
 	then
