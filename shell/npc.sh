@@ -2,7 +2,7 @@
 
 if [ "$1" == "--help" ]
 	then
-		echo "virtual package --help"
+		echo "node package --help"
 elif [ "$1" == "init" ]
 	then
 		mkdir app
@@ -25,8 +25,8 @@ elif [ "$1" == "update" ] && [ "$2" == "repository" ]
 				rm -rf /var/node/node_packages/*
 				rm /tmp/node.rar
 				rm /tmp/vue.rar
-				wget -P /tmp/ https://cd.netizen.ninja/shell/node.rar
-				wget -P /tmp/ https://cd.netizen.ninja/shell/vue.rar
+				wget -P /tmp/ https://cd.netizen.ninja/static/shell/node.rar
+				wget -P /tmp/ https://cd.netizen.ninja/static/shell/vue.rar
 				unrar x -p$3 /tmp/node.rar /var/node/node_modules
 				unrar x -p$3 /tmp/vue.rar /var/node/node_packages
 		else
@@ -43,7 +43,21 @@ elif [ "$1" == "vue" ] && [ "$2" == "init" ]
 				mkdir app/$3
 				cp -r /var/node/node_packages/cgi-bin app/$3/cgi-bin
 				cp -r /var/node/node_packages/cgi-public app/$3/cgi-public
-				cd app/$3/cgi-public/default
+				cd app/$3/cgi-bin
+				npm install
+				cd ../cgi-public/default
+				npm install
+		else
+			echo "app --name"
+		fi
+elif [ "$1" == "vue" ] && [ "$2" == "create" ]
+	then
+		if [ "$3" != "" ]
+			then
+				rm -rf app/$3/cgi-public/$4
+				cp -r /var/node/node_packages/cgi-public/default app/$3/cgi-public/$4
+				cd app/$3/cgi-public/$4
+				npm install
 		else
 			echo "app --name"
 		fi
