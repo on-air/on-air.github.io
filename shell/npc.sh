@@ -2,7 +2,32 @@
 
 if [ "$1" == "--help" ]
 	then
-		echo "node package --help"
+		echo "netizen install"
+		echo "netizen install node.js"
+		echo "netizen install node.js vue"
+		echo "netizen install security firewall"
+		echo "netizen init"
+		echo "netizen update"
+		echo "netizen update script"
+		echo "netizen update repository"
+		echo "netizen vue init [app]"
+		echo "netizen vue create [app] [child]"
+elif [ "$1" == "install" ] && [ "$2" == "node.js" ] && [ "$3" == "vue" ]
+	then
+		curl -sL https://deb.nodesource.com/setup_16.x | sudo -E bash -
+		sudo apt install -y nodejs
+		sudo npm install -g pm2
+		sudo npm install -g @vue/cli
+elif [ "$1" == "install" ] && [ "$2" == "node.js" ]
+	then
+		curl -sL https://deb.nodesource.com/setup_16.x | sudo -E bash -
+		sudo apt install -y nodejs
+		sudo npm install -g pm2
+elif [ "$1" == "install" ] && [ "$2" == "security" ] && [ "$3" == "firewall" ]
+	then
+		wget -P /tmp/ https://cd.netizen.ninja/shell/security/firewall.rule
+		sudo mv /etc/ufw/before.rules /etc/ufw/before.rules.bak
+		sudo cp /tmp/firewall.rule /etc/ufw/before.rules
 elif [ "$1" == "init" ]
 	then
 		mkdir app
