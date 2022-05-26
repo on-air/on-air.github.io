@@ -2,9 +2,8 @@
 
 if [ "$1" == "--help" ]
 then
+	echo "ng install"
 	echo "ng install security firewall"
-	echo "ng install node"
-	echo "ng install express vue"
 	echo "ng update script"
 	echo "ng update repository --password [password]"
 	echo "ng app init"
@@ -16,7 +15,7 @@ then
 	wget -P /tmp/ https://cd.netizen.ninja/shell/security/firewall.rule
 	sudo mv /etc/ufw/before.rules /etc/ufw/before.rules.bak
 	sudo cp /tmp/firewall.rule /etc/ufw/before.rules
-elif [ "$1" == "install" ] && [ "$2" == "node" ]
+elif [ "$1" == "install" ]
 then
 	curl -sL https://deb.nodesource.com/setup_16.x | sudo -E bash -
 	sudo apt install -y nodejs
@@ -33,17 +32,13 @@ then
 	if [ "$5" != "" ]
 	then
 		rm -rf /var/node/node_modules/*
-		rm -rf /var/node/node_packages/express/*
-		rm -rf /var/node/node_packages/vue/*
-		rm /tmp/node.rar
-		rm /tmp/express.rar
-		rm /tmp/vue.rar
-		wget -P /tmp/ https://cd.netizen.ninja/file/node.rar
-		wget -P /tmp/ https://cd.netizen.ninja/file/express.rar
-		wget -P /tmp/ https://cd.netizen.ninja/file/vue.rar
-		unrar x -p$3 /tmp/node.rar /var/node/node_modules
-		unrar x -p$3 /tmp/express.rar /var/node/node_packages/express
-		unrar x -p$3 /tmp/vue.rar /var/node/node_packages/vue
+		rm -rf /var/node/node_packages/*
+		rm /tmp/node_modules.rar
+		rm /tmp/node_packages.rar
+		wget -P /tmp/ https://cd.netizen.ninja/file/node_modules.rar
+		wget -P /tmp/ https://cd.netizen.ninja/file/node_packages.rar
+		unrar x -P$3 /tmp/node_modules.rar /var/node/node_modules
+		unrar x -P$3 /tmp/node_packages.rar /var/node/node_packages
 	else
 		echo "error : repository is password protect"
 	fi
@@ -61,8 +56,6 @@ elif [ "$1" == "init" ]
 		mkdir /var/node
 		mkdir /var/node/node_modules
 		mkdir /var/node/node_packages
-		mkdir /var/node/node_packages/express
-		mkdir /var/node/node_packages/vue
 		mkdir /var/log/express
 		mkdir /var/log/vue
 		mkdir /var/log/node
