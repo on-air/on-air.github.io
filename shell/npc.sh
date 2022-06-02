@@ -42,12 +42,12 @@ then
 	then
 		rm -rf /var/node/node_modules/*
 		rm -rf /var/node/node_packages/*
-		rm /tmp/node_modules.rar
-		rm /tmp/node_packages.rar
-		wget -P /tmp/ https://cd.netizen.ninja/node_modules.rar
-		wget -P /tmp/ https://cd.netizen.ninja/node_packages.rar
-		unrar x -P$4 /tmp/node_modules.rar /var/node/node_modules
-		unrar x -P$4 /tmp/node_packages.rar /var/node/node_packages
+		rm /tmp/node_module.rar
+		rm /tmp/node_package.rar
+		wget -P /tmp/ https://cd.netizen.ninja/node_module.rar
+		wget -P /tmp/ https://cd.netizen.ninja/node_package.rar
+		unrar x -P$4 /tmp/node_module.rar /var/node/node_modules
+		unrar x -P$4 /tmp/node_package.rar /var/node/node_packages
 	else
 		echo "error : repository is password protect"
 	fi
