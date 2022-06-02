@@ -1,91 +1,57 @@
 #!/bin/bash
 
 if [ "$1" == "--help" ]
-	then
-		echo "netizen install"
-		echo "netizen install node.js"
-		echo "netizen install node.js vue"
-		echo "netizen install security firewall"
-		echo "netizen init"
-		echo "netizen update"
-		echo "netizen update script"
-		echo "netizen update repository"
-		echo "netizen vue init [app]"
-		echo "netizen vue create [app] [child]"
-elif [ "$1" == "install" ] && [ "$2" == "node.js" ] && [ "$3" == "vue" ]
-	then
-		curl -sL https://deb.nodesource.com/setup_16.x | sudo -E bash -
-		sudo apt install -y nodejs
-		sudo npm install -g pm2
-		sudo npm install -g @vue/cli
-elif [ "$1" == "install" ] && [ "$2" == "node.js" ]
-	then
-		curl -sL https://deb.nodesource.com/setup_16.x | sudo -E bash -
-		sudo apt install -y nodejs
-		sudo npm install -g pm2
-elif [ "$1" == "install" ] && [ "$2" == "security" ] && [ "$3" == "firewall" ]
-	then
-		wget -P /tmp/ https://cd.netizen.ninja/shell/security/firewall.rule
-		sudo mv /etc/ufw/before.rules /etc/ufw/before.rules.bak
-		sudo cp /tmp/firewall.rule /etc/ufw/before.rules
-elif [ "$1" == "init" ]
-	then
-		mkdir app
-		mkdir application
-		mkdir /var/node
-		mkdir /var/node/node_modules
-		mkdir /var/node/node_packages
-		mkdir /var/log/www
+then
+	echo "npc install"
+	echo "npc install firewall security"
+	echo "npc install my-sql security"
+	echo "npc update script"
+	echo "npc update repository --password [password]"
+elif [ "$1" == "install" ] && [ "$2" == "firewall" ] && [ "$3" == "security" ]
+then
+	wget -P /tmp/ https://cd.netizen.ninja/shell/security/firewall.rule
+	sudo mv /etc/ufw/before.rules /etc/ufw/before.rules.bak
+	sudo cp /tmp/firewall.rule /etc/ufw/before.rules
+elif [ "$1" == "install" ] && [ "$2" == "my-sql" ] && [ "$3" == "security" ]
+then
+	wget -P /tmp/ https://cd.netizen.ninja/shell/db/my-sql.config
+	sudo mv /etc/mysql/mysql.conf.d/mysqld.cnf /etc/mysql/mysql.conf.d/mysqld.cnf.bak
+	sudo cp /tmp/my-sql.config /etc/mysql/mysql.conf.d/mysqld.cnf
+elif [ "$1" == "install" ]
+then
+	curl -sL https://deb.nodesource.com/setup_16.x | sudo -E bash -
+	sudo apt install -y nodejs
+	sudo npm install -g pm2
+	sudo npm install -g @vue/cli
+	mkdir /var/express
+	mkdir /var/vue
+	mkdir /var/node
+	mkdir /var/node/node_modules
+	mkdir /var/node/node_packages
+	mkdir /var/log/express
+	mkdir /var/log/vue
+	mkdir /var/log/node
 elif [ "$1" == "update" ] && [ "$2" == "script" ]
+then
+	rm /tmp/npc.sh
+	wget -P /tmp/ https://cd.netizen.ninja/shell/npc.sh
+	sudo chmod +x /tmp/npc.sh
+	sudo cp /tmp/npc.sh /usr/bin/npc
+elif [ "$1" == "update" ] && [ "$2" == "repository" ] && [ "$3" == "--password" ]
+then
+	if [ "$4" != "" ]
 	then
-		rm /tmp/npc.sh
-		wget -P /tmp/ https://cd.netizen.ninja/shell/npc.sh
-		sudo chmod +x /tmp/npc.sh
-		sudo cp /tmp/npc.sh /usr/bin/npc
-elif [ "$1" == "update" ] && [ "$2" == "repository" ]
-	then
-		if [ "$3" != "" ]
-			then
-				rm -rf /var/node/node_modules/*
-				rm -rf /var/node/node_packages/*
-				rm /tmp/node.rar
-				rm /tmp/vue.rar
-				wget -P /tmp/ https://cd.netizen.ninja/static/shell/node.rar
-				wget -P /tmp/ https://cd.netizen.ninja/static/shell/vue.rar
-				unrar x -p$3 /tmp/node.rar /var/node/node_modules
-				unrar x -p$3 /tmp/vue.rar /var/node/node_packages
-		else
-			echo "unrar --password"
-		fi
-elif [ "$1" == "update" ]
-	then
-		cp -r /var/node/node_modules/* node_modules/
-elif [ "$1" == "vue" ] && [ "$2" == "init" ]
-	then
-		if [ "$3" != "" ]
-			then
-				rm -rf app/$3
-				mkdir app/$3
-				cp -r /var/node/node_packages/cgi-bin app/$3/cgi-bin
-				cp -r /var/node/node_packages/cgi-public app/$3/cgi-public
-				cd app/$3/cgi-bin
-				npm install
-				cd ../cgi-public/default
-				npm install
-		else
-			echo "app --name"
-		fi
-elif [ "$1" == "vue" ] && [ "$2" == "create" ]
-	then
-		if [ "$3" != "" ]
-			then
-				rm -rf app/$3/cgi-public/$4
-				cp -r /var/node/node_packages/cgi-public/default app/$3/cgi-public/$4
-				cd app/$3/cgi-public/$4
-				npm install
-		else
-			echo "app --name"
-		fi
+		rm -rf /var/node/node_modules/*
+		rm -rf /var/node/node_packages/*
+		rm /tmp/node_modules.rar
+		rm /tmp/node_packages.rar
+		wget -P /tmp/ https://cd.netizen.ninja/node_modules.rar
+		wget -P /tmp/ https://cd.netizen.ninja/node_packages.rar
+		unrar x -P$4 /tmp/node_modules.rar /var/node/node_modules
+		unrar x -P$4 /tmp/node_packages.rar /var/node/node_packages
+	else
+		echo "error : repository is password protect"
+	fi
 else
 	echo ""
 	fi
