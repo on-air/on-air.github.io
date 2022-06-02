@@ -51,6 +51,12 @@ then
 	else
 		echo "error : repository is password protect"
 	fi
+elif [ "$1" == "update" ]
+then
+	if [ -d "node_modules" ]
+	then
+		cp -r /var/node/node_modules/* node_modules/
+	fi
 else
 	echo ""
 	fi
