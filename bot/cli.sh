@@ -24,6 +24,10 @@ bot_ng () {
 	echo ""
 	}
 
+bot_ng_reload () {
+	sudo systemctl reload nginx.service
+	}
+
 bot_ng_setup () {
 	rm /etc/nginx/sites-enabled/default
 	rm /etc/nginx/sites-enabled/000-default
@@ -125,6 +129,7 @@ then
 		var_port=$6
 		fi
 	node /var/bot/cli.js ng config $var_file $var_name $var_host $var_port
+	bot_ng_reload
 else
 	node /var/bot/cli.js "$@"
 	fi
