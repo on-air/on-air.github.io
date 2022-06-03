@@ -108,6 +108,9 @@ then
 	elif [ "$3" == "default" ]
 	then
 		bot_ng_setup
+		var_file="000-default"
+		var_name="000-default"
+		var_host="127.0.0.1"
 		if [ "$4" == "" ]
 		then
 			read -p "port: " var_port
