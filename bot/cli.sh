@@ -2,27 +2,21 @@
 
 bot_url="https://cd.netizen.ninja"
 
-bot_init () {
-	rm -rf /var/bot
-	mkdir /var/bot
-	}
-
 bot_update () {
+	if [ ! -d "/var/bot" ]
+	then
+		mkdir /var/bot
+		fi
 	rm /tmp/cli.sh
 	rm /tmp/cli.js
-	rm /tmp/module.rar
-	rm /tmp/package.rar
-	rm -rf /var/bot/node_modules/*
-	rm -rf /var/bot/node_packages/*
+	rm /tmp/bot.rar
 	wget -P /tmp/ $bot_url/bot/cli.sh
 	wget -P /tmp/ $bot_url/bot/cli.js
-	wget -P /tmp/ $bot_url/bot/module.rar
-	wget -P /tmp/ $bot_url/bot/package.rar
+	wget -P /tmp/ $bot_url/bot/bot.rar
 	sudo chmod +x /tmp/cli.sh
 	sudo cp /tmp/cli.sh /usr/bin/bot
 	cp /tmp/cli.js /var/bot/cli.js
-	unrar x -P$1 /tmp/module.rar /var/bot/node_modules
-	unrar x -P$1 /tmp/package.rar /var/bot/node_packages
+	unrar x -P$1 /tmp/bot.rar /var/bot
 	cp /var/1.json /var/bot/cli.json
 	}
 
