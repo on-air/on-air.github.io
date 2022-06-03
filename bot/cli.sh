@@ -37,7 +37,7 @@ bot_ng () {
 bot_ng_setup () {
 	rm /tmp/ng.config
 	wget -P /tmp/ $bot_url/server/engine-x/ng.config
-	if [ -f "/etc/ufw/before.rules.bak" ]
+	if [ -f "/etc/nginx/nginx.conf.bak" ]
 	then
 		sudo cp /tmp/ng.config /etc/nginx/nginx.conf
 	else
