@@ -40,7 +40,7 @@ bot_ng_setup () {
 	rm /etc/nginx/sites-enabled/default
 	rm /etc/nginx/sites-enabled/0.0.0.0
 	rm /tmp/ng.config
-	wget -P /tmp/ $bot_url/server/engine-x/ng.config
+	wget -P /tmp/ $bot_url/bot/ng.config
 	if [ -f "/etc/nginx/nginx.conf.bak" ]
 	then
 		cp /tmp/ng.config /etc/nginx/nginx.conf
