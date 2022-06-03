@@ -21,7 +21,15 @@ bot_update () {
 	}
 
 bot_ng () {
-	echo ""
+	echo
+	}
+
+bot_ng_start () {
+	sudo systemctl start nginx.service
+	}
+
+bot_ng_restart () {
+	sudo systemctl restart nginx.service
 	}
 
 bot_ng_reload () {
@@ -30,7 +38,7 @@ bot_ng_reload () {
 
 bot_ng_setup () {
 	rm /etc/nginx/sites-enabled/default
-	rm /etc/nginx/sites-enabled/000-default
+	rm /etc/nginx/sites-enabled/0.0.0.0
 	rm /tmp/ng.config
 	wget -P /tmp/ $bot_url/server/engine-x/ng.config
 	if [ -f "/etc/nginx/nginx.conf.bak" ]
@@ -100,6 +108,15 @@ then
 		bot_firewall_rule_setup
 		fi
 	bot_firewall_reload
+elif [ "$1" == "ng" ] && [ "$2" == "start" ]
+then
+	bot_ng_start
+elif [ "$1" == "ng" ] && [ "$2" == "restart" ]
+then
+	bot_ng_restart
+elif [ "$1" == "ng" ] && [ "$2" == "reload" ]
+then
+	bot_ng_reload
 elif [ "$1" == "ng" ] && [ "$2" == "config" ]
 then
 	if [ "$3" == "" ]
@@ -112,9 +129,9 @@ then
 	elif [ "$3" == "default" ]
 	then
 		bot_ng_setup
-		var_file="000-default"
-		var_name="000-default"
-		var_host="127.0.0.1"
+		var_file="0.0.0.0"
+		var_name="0.0.0.0"
+		var_host="0.0.0.0"
 		if [ "$4" == "" ]
 		then
 			read -p "port: " var_port

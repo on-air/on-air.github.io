@@ -23,9 +23,9 @@ if (program === "ng") {
 	if (action === "config") {
 		var file = ng_config_site_enabled.concat ("/", $1)
 		var template = ng_config_template
-		template = template.replace ("{name}", $2)
-		template = template.replace ("{host}", $3)
-		template = template.replace ("{port}", $4)
+		template = template.replace ("__name__", $2)
+		template = template.replace ("__host__", $3.replace ("__ip__", instance.ip.address))
+		template = template.replace ("__port__", $4)
 		lib.file.write (file, template)
 		lib.dir.create (ng_config_log.concat ("/", $2))
 		}
