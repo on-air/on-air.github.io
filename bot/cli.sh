@@ -88,7 +88,7 @@ then
 	else
 		var_password=$2
 		fi
-	bot_update $var_password
+	bot_update "$var_password"
 elif [ "$1" == "firewall" ] && [ "$2" == "install" ]
 then
 	if [ "$3" == "tcp" ]
@@ -128,7 +128,7 @@ then
 		var_host=$5
 		var_port=$6
 		fi
-	node /var/bot/cli.js ng config $var_file $var_name $var_host $var_port
+	node /var/bot/cli.js ng config "$var_file" "$var_name" "$var_host" "$var_port"
 	bot_ng_reload
 else
 	node /var/bot/cli.js "$@"
