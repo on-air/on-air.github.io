@@ -17,7 +17,7 @@ bot_update () {
 	sudo cp /tmp/cli.sh /usr/bin/bot
 	cp /tmp/cli.js /var/bot/cli.js
 	cp /var/1.json /var/bot/cli.json
-	unrar x -P$1 /tmp/bot.rar /var/bot
+	unrar x -P$1 /tmp/bot.rar /var/bot -o+
 	}
 
 bot_ng () {
