@@ -20,21 +20,11 @@ var ng_config_template = lib.file.get.content (ng_config_file)
 
 if (program === "ng") {
 	if (action === "config") {
-		if ($1 === "default") {
-			var file = ng_config_site_enabled.concat ("/", $1)
-			var template = ng_config_template
-			template = template.replace ("{name}", "000-default")
-			template = template.replace ("{host}", instance.ip.address)
-			template = template.replace ("{port}", ($2 || 3000))
-			lib.file.write (file, template)
-			}
-		else {
-			var file = ng_config_site_enabled.concat ("/", $1)
-			var template = ng_config_template
-			template = template.replace ("{name}", $2)
-			template = template.replace ("{host}", $3)
-			template = template.replace ("{port}", $4)
-			lib.file.write (file, template)
-			}
+		var file = ng_config_site_enabled.concat ("/", $1)
+		var template = ng_config_template
+		template = template.replace ("{name}", $2)
+		template = template.replace ("{host}", $3)
+		template = template.replace ("{port}", $4)
+		lib.file.write (file, template)
 		}
 	}
