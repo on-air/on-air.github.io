@@ -90,8 +90,12 @@ then
 	bot_firewall_reload
 elif [ "$1" == "ng" ] && [ "$2" == "config" ] && [ "$3" == "default" ]
 then
-	read -p 'port: ' var_port
-	echo
+	bot_ng_setup
+	if [ "$4" != "" ]
+	then
+		read -p 'port: ' var_port
+		echo
+		fi
 	node /var/bot/cli.js ng config $3 $var_port
 elif [ "$1" == "ng" ] && [ "$2" == "config" ]
 then
