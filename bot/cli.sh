@@ -73,7 +73,7 @@ then
 	echo "[BOT]"
 elif [ "$1" == "update" ]
 then
-	bot_update
+	bot_update $2
 elif [ "$1" == "firewall" ] && [ "$2" == "install" ] && [ "$3" == "tcp" ]
 then
 	bot_firewall
