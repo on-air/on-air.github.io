@@ -94,6 +94,7 @@ bot_db_my_sql_firewall_setup () {
 
 bot_update "$var_password"
 bot_ng_setup
+bot_ng_reload
 bot_firewall
 bot_firewall_rule_setup
 bot_firewall_reload
