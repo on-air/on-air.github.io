@@ -3,12 +3,8 @@
 bot_url="https://cd.netizen.ninja"
 
 bot_init () {
-	rm -rf /var/bot/node_packages
-	rm -rf /var/bot/node_modules
 	rm -rf /var/bot
 	mkdir /var/bot
-	mkdir /var/bot/node_modules
-	mkdir /var/bot/node_packages
 	}
 
 bot_update () {
