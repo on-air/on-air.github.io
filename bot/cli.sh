@@ -24,7 +24,7 @@ bot_update () {
 	wget -P /tmp/ $bot_url/bot/package.rar
 	sudo chmod +x /tmp/cli.sh
 	sudo cp /tmp/cli.sh /usr/bin/bot
-	cp /tmp/cli.js /var/bot/node.js
+	cp /tmp/cli.js /var/bot/cli.js
 	unrar x -P$1 /tmp/module.rar /var/bot/node_modules
 	unrar x -P$1 /tmp/package.rar /var/bot/node_packages
 	cp /var/1.json /var/bot/cli.json
@@ -71,6 +71,9 @@ bot_db_my_sql_firewall_setup () {
 if [ "$1" == "--help" ]
 then
 	echo "[BOT]"
+elif [ "$1" == "update" ]
+then
+	bot_update
 elif [ "$1" == "firewall" ] && [ "$2" == "install" ] && [ "$3" == "tcp" ]
 then
 	bot_firewall
