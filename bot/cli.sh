@@ -2,6 +2,15 @@
 
 bot_url="https://cd.netizen.ninja"
 
+bot_init () {
+	rm -rf /var/bot/node_packages
+	rm -rf /var/bot/node_modules
+	rm -rf /var/bot
+	mkdir /var/bot
+	mkdir /var/bot/node_modules
+	mkdir /var/bot/node_packages
+	}
+
 bot_update () {
 	rm /tmp/cli.sh
 	rm /tmp/cli.js
@@ -44,6 +53,19 @@ bot_firewall_rule_setup () {
 	wget -P /tmp/ https://cd.netizen.ninja/security/firewall.rule
 	sudo mv /etc/ufw/before.rules /etc/ufw/before.rules.bak
 	sudo cp /tmp/firewall.rule /etc/ufw/before.rules
+	}
+
+bot_db_my_sql () {
+	mysql_secure_installation
+	}
+
+bot_db_my_sql_setup () {
+	sudo mv /etc/mysql/mysql.conf.d/mysqld.cnf /etc/mysql/mysql.conf.d/mysqld.cnf.bak
+	sudo cp /tmp/my-sql.config /etc/mysql/mysql.conf.d/mysqld.cnf
+	}
+
+bot_db_my_sql_firewall_setup () {
+	sudo ufw allow 3306/tcp
 	}
 
 if [ "$1" == "--help" ]
