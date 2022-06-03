@@ -37,7 +37,13 @@ bot_ng () {
 bot_ng_setup () {
 	rm /tmp/ng.config
 	wget -P /tmp/ $bot_url/server/engine-x/ng.config
-	sudo cp /tmp/ng.config /etc/nginx/nginx.conf
+	if [ -f "/etc/ufw/before.rules.bak" ]
+	then
+		sudo cp /tmp/ng.config /etc/nginx/nginx.conf
+	else
+		sudo mv /etc/nginx/nginx.conf /etc/nginx/nginx.conf.bak
+		sudo cp /tmp/ng.config /etc/nginx/nginx.conf
+		fi
 	}
 
 bot_firewall () {
@@ -51,8 +57,13 @@ bot_firewall_reload () {
 
 bot_firewall_rule_setup () {
 	wget -P /tmp/ https://cd.netizen.ninja/security/firewall.rule
-	sudo mv /etc/ufw/before.rules /etc/ufw/before.rules.bak
-	sudo cp /tmp/firewall.rule /etc/ufw/before.rules
+	if [ -f "/etc/ufw/before.rules.bak" ]
+	then
+		sudo cp /tmp/firewall.rule /etc/ufw/before.rules
+	else
+		sudo mv /etc/ufw/before.rules /etc/ufw/before.rules.bak
+		sudo cp /tmp/firewall.rule /etc/ufw/before.rules
+		fi
 	}
 
 bot_db_my_sql () {
@@ -71,9 +82,9 @@ bot_db_my_sql_firewall_setup () {
 if [ "$1" == "--help" ]
 then
 	echo "[BOT]"
-elif [ "$1" == "update" ]
+elif [ "$1" == "update" ] && [ "$2" == "--password" ]
 then
-	bot_update $2
+	bot_update $3
 elif [ "$1" == "firewall" ] && [ "$2" == "install" ] && [ "$3" == "tcp" ]
 then
 	bot_firewall
