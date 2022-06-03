@@ -78,17 +78,34 @@ bot_db_my_sql_firewall_setup () {
 if [ "$1" == "--help" ]
 then
 	echo "[BOT]"
-elif [ "$1" == "update" ] && [ "$2" == "--password" ]
+elif [ "$1" == "update" ]
 then
-	bot_update $3
+	read -sp 'password: ' var_password
+	echo
+	bot_update $var_password
 elif [ "$1" == "firewall" ] && [ "$2" == "install" ] && [ "$3" == "tcp" ]
 then
-	bot_firewall
+	if [ "$3" == "tcp" ]
+	then
+		bot_firewall
+		fi
+	if [ "$3" == "rule" ]
+	then
+		bot_firewall_rule_setup
+		fi
 	bot_firewall_reload
-elif [ "$1" == "firewall" ] && [ "$2" == "install" ] && [ "$3" == "rule" ]
+elif [ "$1" == "ng" ] && [ "$2" == "config" ] && [ "$3" == "default" ]
 then
-	bot_firewall_rule_setup
-	bot_firewall_reload
+	read -p 'port: ' var_port
+	echo
+	node /var/bot/cli.js ng config $3 $var_port
+elif [ "$1" == "ng" ] && [ "$2" == "config" ]
+then
+	read -p 'name: ' var_name
+	read -p 'host: ' var_host
+	read -p 'port: ' var_port
+	echo
+	node /var/bot/cli.js ng config $3 $var_name $var_host $var_port
 else
 	node /var/bot/cli.js "$@"
 	fi
