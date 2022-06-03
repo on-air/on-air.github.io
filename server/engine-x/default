@@ -1,0 +1,22 @@
+server {
+	listen 80;
+	access_log /var/log/www/__name__/access.log;
+	error_log /var/log/www/__name__/error.log;
+	index index.html;
+	root /var/www/__name__;
+	server_name __name__ www.__name__ *.__name__;
+	location / {
+		proxy_pass http://localhost:3000/;
+		proxy_http_version 1.1;
+		proxy_set_header Upgrade \$http_upgrade;
+		proxy_set_header Connection 'upgrade';
+		proxy_set_header Host \$host;
+		proxy_cache_bypass \$http_upgrade;
+		}
+	location /static/ {
+		try_files \$uri \$uri/ =404;
+		}
+	location /favicon.ico {
+		try_files \$uri \$uri/ =404;
+		}
+	}
