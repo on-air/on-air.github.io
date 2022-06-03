@@ -14,6 +14,7 @@ var $3 = argument [one + 3]
 var $4 = argument [one + 4]
 var $5 = argument [one + 5]
 
+var ng_config_log = "/var/log/www"
 var ng_config_site_enabled = "/etc/nginx/sites-enabled"
 var ng_config_file = "/var/bot/node_process/ng.config"
 var ng_config_template = lib.file.get.content (ng_config_file)
@@ -26,5 +27,6 @@ if (program === "ng") {
 		template = template.replace ("{host}", $3)
 		template = template.replace ("{port}", $4)
 		lib.file.write (file, template)
+		lib.dir.create (ng_config_log.concat ("/", $2))
 		}
 	}
