@@ -91,7 +91,7 @@ then
 elif [ "$1" == "ng" ] && [ "$2" == "config" ] && [ "$3" == "default" ]
 then
 	bot_ng_setup
-	if [ "$4" != "" ]
+	if [ "$4" == "" ]
 	then
 		read -p 'port: ' var_port
 		echo
@@ -99,11 +99,20 @@ then
 	node /var/bot/cli.js ng config $3 $var_port
 elif [ "$1" == "ng" ] && [ "$2" == "config" ]
 then
-	read -p 'name: ' var_name
-	read -p 'host: ' var_host
-	read -p 'port: ' var_port
-	echo
-	node /var/bot/cli.js ng config $3 $var_name $var_host $var_port
+	if [ "$3" == "" ]
+	then
+		read -p 'file: ' var_file
+		read -p 'name: ' var_name
+		read -p 'host: ' var_host
+		read -p 'port: ' var_port
+		echo
+	else
+		var_file=$3
+		var_name=$4
+		var_host=$5
+		var_port=$6
+		fi
+	node /var/bot/cli.js ng config $var_file $var_name $var_host $var_port
 else
 	node /var/bot/cli.js "$@"
 	fi
