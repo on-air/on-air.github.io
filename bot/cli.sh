@@ -50,6 +50,27 @@ bot_ng_setup () {
 		fi
 	}
 
+bot_db_my_sql () {
+	echo
+	}
+
+bot_db_my_sql_setup () {
+	mv /etc/mysql/mysql.conf.d/mysqld.cnf /etc/mysql/mysql.conf.d/mysqld.cnf.bak
+	cp /tmp/my-sql.config /etc/mysql/mysql.conf.d/mysqld.cnf
+	}
+
+bot_db_my_sql_firewall_setup () {
+	sudo ufw allow 3306/tcp
+	}
+
+bot_express () {
+	echo
+	}
+
+bot_vue () {
+	echo
+	}
+
 bot_firewall () {
 	sudo ufw allow http
 	sudo ufw allow https
@@ -69,19 +90,6 @@ bot_firewall_rule_setup () {
 		mv /etc/ufw/before.rules /etc/ufw/before.rules.bak
 		cp /tmp/firewall.rule /etc/ufw/before.rules
 		fi
-	}
-
-bot_db_my_sql () {
-	mysql_secure_installation
-	}
-
-bot_db_my_sql_setup () {
-	mv /etc/mysql/mysql.conf.d/mysqld.cnf /etc/mysql/mysql.conf.d/mysqld.cnf.bak
-	cp /tmp/my-sql.config /etc/mysql/mysql.conf.d/mysqld.cnf
-	}
-
-bot_db_my_sql_firewall_setup () {
-	sudo ufw allow 3306/tcp
 	}
 
 if [ "$1" == "--help" ]

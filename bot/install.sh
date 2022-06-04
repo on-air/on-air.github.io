@@ -2,14 +2,6 @@
 
 bot_url="https://cd.netizen.ninja"
 
-if [ "$1" == "" ]
-then
-	read -sp "password: " var_password
-	echo
-else
-	var_password=$1
-	fi
-
 bot_update () {
 	if [ ! -d "/var/bot" ]
 	then
@@ -58,6 +50,27 @@ bot_ng_setup () {
 		fi
 	}
 
+bot_db_my_sql () {
+	echo
+	}
+
+bot_db_my_sql_setup () {
+	mv /etc/mysql/mysql.conf.d/mysqld.cnf /etc/mysql/mysql.conf.d/mysqld.cnf.bak
+	cp /tmp/my-sql.config /etc/mysql/mysql.conf.d/mysqld.cnf
+	}
+
+bot_db_my_sql_firewall_setup () {
+	sudo ufw allow 3306/tcp
+	}
+
+bot_express () {
+	echo
+	}
+
+bot_vue () {
+	echo
+	}
+
 bot_firewall () {
 	sudo ufw allow http
 	sudo ufw allow https
@@ -79,18 +92,13 @@ bot_firewall_rule_setup () {
 		fi
 	}
 
-bot_db_my_sql () {
-	mysql_secure_installation
-	}
-
-bot_db_my_sql_setup () {
-	mv /etc/mysql/mysql.conf.d/mysqld.cnf /etc/mysql/mysql.conf.d/mysqld.cnf.bak
-	cp /tmp/my-sql.config /etc/mysql/mysql.conf.d/mysqld.cnf
-	}
-
-bot_db_my_sql_firewall_setup () {
-	sudo ufw allow 3306/tcp
-	}
+if [ "$1" == "" ]
+then
+	read -sp "password: " var_password
+	echo
+else
+	var_password=$1
+	fi
 
 bot_update "$var_password"
 bot_ng_setup
