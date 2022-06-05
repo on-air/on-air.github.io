@@ -17,6 +17,9 @@ bot_update () {
 	cp /var/1.json /var/bot/cli.json
 	unrar x -P$1 /tmp/node.rar /var/bot/node_modules -o+
 	unrar x -P$1 /tmp/express.rar /var/bot/node_packages/express -o+
+	cp /tmp/apache.config /var/bot/node_process/apache.config
+	cp /tmp/ng.config /var/bot/node_process/ng.config
+	cp /tmp/ng.template /var/bot/node_process/ng.template
 	cp /tmp/my-sql.config /var/bot/node_process/my-sql.config
 	cp /tmp/firewall.rule /var/bot/node_process/firewall.rule
 	}
