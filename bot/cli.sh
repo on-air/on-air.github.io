@@ -61,6 +61,10 @@ bot_update_download () {
 	wget -P /tmp/ $bot_url/security/firewall.rule
 	}
 
+bot_update_repository () {
+	cp -r /var/bot/node_modules/* node_modules/
+	}
+
 bot_ng () {
 	echo
 	}
@@ -137,6 +141,9 @@ bot_firewall_rule_setup () {
 if [ "$1" == "--help" ]
 then
 	echo "[BOT]"
+elif [ "$1" == "update" ] && [ "$2" == "repository" ]
+then
+	bot_update_repository
 elif [ "$1" == "update" ]
 then
 	if [ "$2" == "" ]
