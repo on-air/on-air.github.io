@@ -27,6 +27,25 @@ w_get () {
 		fi
 	}
 
+mkdirname () {
+	if [ ! -d "$1" ]
+	then
+		mkdir $1
+		fi
+	}
+
+rmdir () {
+	if [ "$2" == "--file" ]
+	then
+		rm -rf $1/*
+	else
+		if [ -d "$1" ]
+		then
+			rm -rf $1
+			fi
+		fi
+	}
+
 bot_upgrade () {
 	if [ -d "node_modules" ]
 	then
@@ -35,10 +54,7 @@ bot_upgrade () {
 	}
 
 bot_update () {
-	if [ ! -d "$BOT_DIR" ]
-	then
-		bot_update_init
-		fi
+	bot_update_init
 	bot_update_clear
 	bot_update_download
 	sudo chmod +x $CLI_SHELL
@@ -49,16 +65,16 @@ bot_update () {
 	}
 
 bot_update_init () {
-	mkdir $BOT_DIR
-	mkdir $NODE_FILES
-	mkdir $NODE_MODULES
-	mkdir $NODE_PACKAGES
+	mkdirname $BOT_DIR
+	mkdirname $NODE_FILES
+	mkdirname $NODE_MODULES
+	mkdirname $NODE_PACKAGES
 	}
 
 bot_update_clear () {
-	rm -rf $NODE_FILES/*
-	rm -rf $NODE_MODULES/*
-	rm -rf $NODE_PACKAGES/*
+	rmdir $NODE_FILES --file
+	rmdir $NODE_MODULES --file
+	rmdir $NODE_PACKAGES --file
 	}
 
 bot_update_download () {
@@ -82,6 +98,8 @@ NG_FILE_CONFIG="/etc/nginx/nginx.conf"
 NG_FILE_BACKUP="/etc/nginx/nginx.conf.bak"
 NG_FILE_DEFAULT="/etc/nginx/sites-enabled/default"
 NG_FILE_DEFAULT_ROUTER="/etc/nginx/sites-enabled/0.0.0.0"
+NG_DIR="/var/www"
+NG_DIR_LOG="/var/log/nginx"
 
 bot_ng () {
 	echo
@@ -101,6 +119,11 @@ bot_ng_reload () {
 
 bot_ng_stop () {
 	sudo systemctl stop nginx.service
+	}
+
+bot_ng_init () {
+	rmdir $NG_DIR/www/html
+	mkdirname $NG_DIR_LOG
 	}
 
 bot_ng_setup () {
@@ -124,7 +147,7 @@ bot_db_my_sql () {
 	}
 
 bot_db_my_sql_setup () {
-	if [ ! -d "$DB_MY_SQL_FILE_BACKUP" ]
+	if [ ! -f "$DB_MY_SQL_FILE_BACKUP" ]
 	then
 		cp $DB_MY_SQL_FILE $DB_MY_SQL_FILE_CONFIG
 	else
@@ -146,10 +169,7 @@ bot_express () {
 	}
 
 bot_express_init () {
-	if [ ! -d "$EXPRESS_DIR" ]
-	then
-		mkdir $EXPRESS_DIR
-		fi
+	mkdirname $EXPRESS_DIR
 	cp -r $NODE_PACKAGES_EXPRESS/* $EXPRESS_DIR/
 	cd $EXPRESS_DIR
 	npm install
