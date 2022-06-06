@@ -1,69 +1,87 @@
 #!/bin/bash
 
-bot_url="https://cd.netizen.ninja"
+CD_URL="https://cd.netizen.ninja"
+CD_URL_DB="$CD_URL/db"
+CD_URL_SECURITY="$CD_URL/security"
+BOT_URL="$CD_URL/bot"
+BOT_URL_FILE="$BOT_URL/node_files"
+BOT_EXE="/usr/bin/bot"
+BOT_DIR="/var/bot"
+NODE_FILES="$BOT_DIR/node_files"
+NODE_MODULES="$BOT_DIR/node_modules"
+NODE_PACKAGES="$BOT_DIR/node_packages"
+NODE_PACKAGES_EXPRESS="$NODE_PACKAGES/express"
+NODE_PACKAGES_ANGULAR="$NODE_PACKAGES/angular"
+NODE_PACKAGES_VUE="$NODE_PACKAGES/vue"
+CLI_SHELL="$BOT_DIR/cli.sh"
+CLI_SCRIPT="$BOT_DIR/cli.js"
+
+w_get () {
+	rm /tmp/$1
+	wget -q -P /tmp/ $3$1
+	if [ -d "$5" ]
+	then
+		mv /tmp/$1 $5$1
+	else
+		mv /tmp/$1 $5
+		fi
+	}
+
+bot_upgrade () {
+	if [ -d "node_modules" ]
+	then
+		cp -r $NODE_MODULES/* node_modules/
+		fi
+	}
 
 bot_update () {
-	if [ ! -d "/var/bot" ]
+	if [ ! -d "$BOT_DIR" ]
 	then
 		bot_update_init
 		fi
 	bot_update_clear
 	bot_update_download
-	sudo chmod +x /tmp/cli.sh
-	sudo cp /tmp/cli.sh /usr/bin/bot
-	cp /tmp/cli.sh /var/bot/cli.sh
-	cp /tmp/cli.js /var/bot/cli.js
-	cp /tmp/cli.min.js /var/bot/cli.min.js
-	cp /var/1.json /var/bot/cli.json
-	unrar x -P$1 /tmp/node.rar /var/bot/node_modules -o+
-	unrar x -P$1 /tmp/express.rar /var/bot/node_packages/express -o+
-	cp /tmp/apache.config /var/bot/node_process/apache.config
-	cp /tmp/ng.config /var/bot/node_process/ng.config
-	cp /tmp/ng.template /var/bot/node_process/ng.template
-	cp /tmp/my-sql.config /var/bot/node_process/my-sql.config
-	cp /tmp/firewall.rule /var/bot/node_process/firewall.rule
+	sudo chmod +x $CLI_SHELL
+	sudo cp $CLI_SHELL $BOT_EXE
+	cp /var/1.json $BOT_DIR/cli.json
+	unrar x -P$1 $NODE_FILES/node_module.rar $NODE_MODULES -o+
+	unrar x -P$1 $NODE_FILES/node_package.rar $NODE_PACKAGES -o+
 	}
 
 bot_update_init () {
-	mkdir /var/bot
-	mkdir /var/bot/node_modules
-	mkdir /var/bot/node_packages
-	mkdir /var/bot/node_packages/express
-	mkdir /var/bot/node_process
+	mkdir $BOT_DIR
+	mkdir $NODE_FILES
+	mkdir $NODE_MODULES
+	mkdir $NODE_PACKAGES
 	}
 
 bot_update_clear () {
-	rm -rf /var/bot/node_modules/*
-	rm -rf /var/bot/node_packages/express/*
-	rm -rf /var/bot/node_process/*
-	rm /tmp/cli.sh
-	rm /tmp/cli.js
-	rm /tmp/cli.min.js
-	rm /tmp/node.rar
-	rm /tmp/express.rar
-	rm /tmp/apache.config
-	rm /tmp/ng.config
-	rm /tmp/ng.template
-	rm /tmp/my-sql.config
-	rm /tmp/firewall.rule
+	rm -rf $NODE_FILES/*
+	rm -rf $NODE_MODULES/*
+	rm -rf $NODE_PACKAGES/*
 	}
 
 bot_update_download () {
-	wget -P /tmp/ $bot_url/bot/cli.sh
-	wget -P /tmp/ $bot_url/bot/cli.js
-	wget -P /tmp/ $bot_url/bot/cli.min.js
-	wget -P /tmp/ $bot_url/bot/node_process/node.rar
-	wget -P /tmp/ $bot_url/bot/node_process/express.rar
-	wget -P /tmp/ $bot_url/bot/node_process/apache.config
-	wget -P /tmp/ $bot_url/bot/node_process/ng.config
-	wget -P /tmp/ $bot_url/bot/node_process/ng.template
-	wget -P /tmp/ $bot_url/db/my-sql.config
-	wget -P /tmp/ $bot_url/security/firewall.rule
+	w_get cli.sh from $BOT_URL/ to $BOT_DIR/
+	w_get cli.js from $BOT_URL/ to $BOT_DIR/
+	w_get cli.min.js from $BOT_URL/ to $BOT_DIR/
+	w_get ecosystem.config.js from $BOT_URL/ to $BOT_DIR/
+	w_get ecosystem.config.json from $BOT_URL/ to $BOT_DIR/
+	w_get node_module.rar from $BOT_URL_FILE/ to $NODE_FILES/
+	w_get node_package.rar from $BOT_URL_FILE/ to $NODE_FILES/
+	w_get apache.config from $BOT_URL_FILE/ to $NODE_FILES/
+	w_get apache.template from $BOT_URL_FILE/ to $NODE_FILES/
+	w_get ng.config from $BOT_URL_FILE/ to $NODE_FILES/
+	w_get ng.template from $BOT_URL_FILE/ to $NODE_FILES/
+	w_get my-sql.config from $CD_URL_DB/ to $NODE_FILES/
+	w_get firewall.rule from $CD_URL_SECURITY/ to $NODE_FILES/
 	}
 
-bot_update_repository () {
-	cp -r /var/bot/node_modules/* node_modules/
-	}
+NG_FILE="$NODE_FILES/ng.config"
+NG_FILE_CONFIG="/etc/nginx/nginx.conf"
+NG_FILE_BACKUP="/etc/nginx/nginx.conf.bak"
+NG_FILE_DEFAULT="/etc/nginx/sites-enabled/default"
+NG_FILE_DEFAULT_ROUTER="/etc/nginx/sites-enabled/0.0.0.0"
 
 bot_ng () {
 	echo
@@ -81,29 +99,37 @@ bot_ng_reload () {
 	sudo systemctl reload nginx.service
 	}
 
+bot_ng_stop () {
+	sudo systemctl stop nginx.service
+	}
+
 bot_ng_setup () {
-	rm /etc/nginx/sites-enabled/default
-	rm /etc/nginx/sites-enabled/0.0.0.0
-	if [ -f "/etc/nginx/nginx.conf.bak" ]
+	rm $NG_FILE_DEFAULT
+	rm $NG_FILE_DEFAULT_ROUTER
+	if [ -f "$NG_FILE_BACKUP" ]
 	then
-		cp /var/bot/node_process/ng.config /etc/nginx/nginx.conf
+		cp $NG_FILE $NG_FILE_CONFIG
 	else
-		mv /etc/nginx/nginx.conf /etc/nginx/nginx.conf.bak
-		cp /var/bot/node_process/ng.config /etc/nginx/nginx.conf
+		mv $NG_FILE_CONFIG $NG_FILE_BACKUP
+		cp $NG_FILE $NG_FILE_CONFIG
 		fi
 	}
+
+DB_MY_SQL_FILE="$NODE_FILES/my-sql.config"
+DB_MY_SQL_FILE_CONFIG="/etc/mysql/mysql.conf.d/mysqld.cnf"
+DB_MY_SQL_FILE_BACKUP="/etc/mysql/mysql.conf.d/mysqld.cnf.bak"
 
 bot_db_my_sql () {
 	echo
 	}
 
 bot_db_my_sql_setup () {
-	if [ ! -d "/etc/mysql/mysql.conf.d/mysqld.cnf.bak" ]
+	if [ ! -d "$DB_MY_SQL_FILE_BACKUP" ]
 	then
-		cp /var/bot/node_process/my-sql.config /etc/mysql/mysql.conf.d/mysqld.cnf
+		cp $DB_MY_SQL_FILE $DB_MY_SQL_FILE_CONFIG
 	else
-		mv /etc/mysql/mysql.conf.d/mysqld.cnf /etc/mysql/mysql.conf.d/mysqld.cnf.bak
-		cp /var/bot/node_process/my-sql.config /etc/mysql/mysql.conf.d/mysqld.cnf
+		mv $DB_MY_SQL_FILE_CONFIG $DB_MY_SQL_FILE_BACKUP
+		cp $DB_MY_SQL_FILE $DB_MY_SQL_FILE_CONFIG
 		fi
 	}
 
@@ -111,13 +137,36 @@ bot_db_my_sql_firewall_setup () {
 	sudo ufw allow 3306/tcp
 	}
 
+EXPRESS_FILE="/var/express/package.js"
+EXPRESS_DIR="/var/express"
+PM_ECOSYSTEM="$BOT_DIR/ecosystem.config.js"
+
 bot_express () {
 	echo
 	}
 
+bot_express_init () {
+	if [ ! -d "$EXPRESS_DIR" ]
+	then
+		mkdir $EXPRESS_DIR
+		fi
+	cp -r $NODE_PACKAGES_EXPRESS/* $EXPRESS_DIR/
+	cd $EXPRESS_DIR
+	npm install
+	bot_upgrade
+	sudo pm2 start $PM_ECOSYSTEM
+	}
+
+VUE_FILE="/var/vue/package.js"
+VUE_DIR="/var/vue"
+
 bot_vue () {
 	echo
 	}
+
+FIREWALL_FILE="$NODE_FILES/firewall.rule"
+FIREWALL_FILE_CONFIG="/etc/ufw/before.rules"
+FIREWALL_FILE_BACKUP="/etc/ufw/before.rules.bak"
 
 bot_firewall () {
 	sudo ufw allow http
@@ -129,21 +178,21 @@ bot_firewall_reload () {
 	}
 
 bot_firewall_rule_setup () {
-	if [ -f "/etc/ufw/before.rules.bak" ]
+	if [ -f "$FIREWALL_FILE_BACKUP" ]
 	then
-		cp /var/bot/node_process/firewall.rule /etc/ufw/before.rules
+		cp $FIREWALL_FILE $FIREWALL_FILE_CONFIG
 	else
-		mv /etc/ufw/before.rules /etc/ufw/before.rules.bak
-		cp /var/bot/node_process/firewall.rule /etc/ufw/before.rules
+		mv $FIREWALL_FILE_CONFIG $FIREWALL_FILE_BACKUP
+		cp $FIREWALL_FILE $FIREWALL_FILE_CONFIG
 		fi
 	}
 
 if [ "$1" == "--help" ]
 then
 	echo "[BOT]"
-elif [ "$1" == "update" ] && [ "$2" == "repository" ]
+elif [ "$1" == "upgrade" ]
 then
-	bot_update_repository
+	bot_upgrade
 elif [ "$1" == "update" ]
 then
 	if [ "$2" == "" ]
@@ -174,6 +223,9 @@ then
 elif [ "$1" == "ng" ] && [ "$2" == "reload" ]
 then
 	bot_ng_reload
+elif [ "$1" == "ng" ] && [ "$2" == "stop" ]
+then
+	bot_ng_stop
 elif [ "$1" == "ng" ] && [ "$2" == "config" ]
 then
 	if [ "$3" == "" ]
@@ -202,8 +254,8 @@ then
 		var_host=$5
 		var_port=$6
 		fi
-	node /var/bot/cli.js ng config "$var_file" "$var_name" "$var_host" "$var_port"
+	node $CLI_SCRIPT ng config "$var_file" "$var_name" "$var_host" "$var_port"
 	bot_ng_reload
 else
-	node /var/bot/cli.js "$@"
+	node $CLI_SCRIPT "$@"
 	fi
