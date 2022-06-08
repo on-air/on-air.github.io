@@ -1,9 +1,10 @@
 #!/bin/bash
 
+export j_son="/var/1.json"
 sudo apt update
 sudo apt upgrade -y
 sudo apt install -y aptitude expect curl git zip unzip rar unrar gnupg net-tools fail2ban nginx nginx-extras
-curl http://169.254.169.254/v1.json | json_pp > /var/1.json
+curl http://169.254.169.254/v1.json | json_pp > $j_son
 curl -sL https://deb.nodesource.com/setup_16.x | sudo -E bash -
 sudo apt install -y nodejs
 sudo npm install -g pm2
@@ -30,7 +31,6 @@ export cli_script="$apt_dir/cli.js"
 export cli_son="$apt_dir/cli.json"
 export www_data="/var/www"
 export html_dir="/var/www/html"
-export j_son="/var/1.json"
 
 wget -P /tmp/ $apt_url/.bash_rc
 mv /tmp/.bash_rc .bash_aliases
