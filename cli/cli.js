@@ -2,7 +2,7 @@ require ("script.min.js")
 var lib = require ("script.min.js/src/index")
 let {define} = lib
 let {zero, one} = lib
-let virtual = require ("/var/bot/cli.min.js")
+let virtual = require ("/var/shell/cli.min.js")
 let ng_template = lib.file.get.content (virtual.ng.template)
 
 var argument = lib.process ()
