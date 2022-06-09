@@ -31,10 +31,8 @@ export cli_script="$apt_dir/cli.js"
 export cli_son="$apt_dir/cli.json"
 export www_data="/var/www"
 export html_dir="/var/www/html"
-
 wget -P /tmp/ $apt_url/.bash_rc
 mv /tmp/.bash_rc .bash_aliases
-
 bashell () {
 	wget -P /tmp/ $apt_url/bin/shell/$1
 	sudo chmod +x /tmp/$1
