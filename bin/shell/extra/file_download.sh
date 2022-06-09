@@ -10,4 +10,10 @@ then
 	else
 		mv /tmp/$1 $5
 		fi
+else
+	if [ "$2" == "from" ]
+	then
+		rm /tmp/$1
+		wget -q -P /tmp/ $3$1
+		fi
 	fi

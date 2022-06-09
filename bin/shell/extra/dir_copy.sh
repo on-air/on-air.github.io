@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if [ "$3" == "--file" ]
+if [ "${1: -1}" == "/" ]
 then
 	cp -r $1/* $2
 else

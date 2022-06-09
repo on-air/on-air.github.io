@@ -5,7 +5,7 @@ express_dir="/var/express"
 
 do_install () {
 	dir_create $express_dir
-	dir_copy $node_packages/express/ $express_dir/ --file
+	dir_copy $node_packages/express/ $express_dir/
 	cd $express_dir
 	npm install
 	upgrade.sh

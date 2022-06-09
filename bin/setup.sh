@@ -31,6 +31,7 @@ export cli_script="$apt_dir/cli.js"
 export cli_son="$apt_dir/cli.json"
 export www_data="/var/www"
 export html_dir="/var/www/html"
+mkdir /tmp/extra
 wget -P /tmp/ $apt_url/bash_rc
 mv /tmp/bash_rc .bash_aliases
 . ~/.bash_aliases

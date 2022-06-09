@@ -1,11 +1,11 @@
 #!/bin/bash
 
-if [ -d "$1" ]
+if [ "${1: -1}" == "/" ]
 then
-	if [ "$2" == "--file" ]
+	rm -rf $1/*
+else
+	if [ -d "$1" ]
 	then
-		rm -rf $1/*
-	else
 		rm -rf $1
 		fi
 	fi
