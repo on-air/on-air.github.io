@@ -29,6 +29,9 @@ do_download () {
 	file_download firewall.rule from $apt_files_url/ to $apt_files/
 	}
 
+do_init
+do_clear
+do_download
 sudo chmod +x $cli_shell
 sudo file_copy $cli_shell $cli_exe
 file_copy $j_son $cli_son
