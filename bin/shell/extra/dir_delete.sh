@@ -2,7 +2,7 @@
 
 if [ -d "$1" ]
 then
-	if [ "$2" == "*" ]
+	if [ "$2" == "--file" ]
 	then
 		rm -rf $1/*
 	else
