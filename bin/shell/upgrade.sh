@@ -9,5 +9,5 @@ then
 
 if [ -d "$package" ]
 then
-	dir_copy $node_modules/* $package/
+	dir_copy $node_modules/ $package/ --file
 	fi
