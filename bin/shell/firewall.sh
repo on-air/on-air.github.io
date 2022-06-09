@@ -18,7 +18,7 @@ if [ "$1" == "install" ] && [ "$2" == "tcp" ]
 then
 	sudo ufw allow http
 	sudo ufw allow https
-if [ "$1" == "install" ] && [ "$2" == "rule" ]
+elif [ "$1" == "install" ] && [ "$2" == "rule" ]
 then
 	do_install_rule
 elif [ "$1" == "install" ]
