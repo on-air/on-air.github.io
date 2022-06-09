@@ -8,9 +8,9 @@ do_init () {
 	}
 
 do_clear () {
-	dir_delete $apt_files *
-	dir_delete $node_modules *
-	dir_delete $node_packages *
+	dir_delete $apt_files --file
+	dir_delete $node_modules --file
+	dir_delete $node_packages --file
 	}
 
 do_download () {

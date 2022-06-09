@@ -59,13 +59,13 @@ wget -P /tmp/ $apt_url/bin/install.sh
 sudo chmod +x /tmp/install.sh
 sudo mv /tmp/install.sh /usr/bin/install.sh
 
-bashell extra/file_download.sh file_download
-bashell extra/file_extract.sh file_extract
-bashell extra/file_delete.sh file_delete
-bashell extra/file_copy.sh file_copy
-bashell extra/dir_create.sh dir_create
-bashell extra/dir_delete.sh dir_delete
-bashell extra/dir_copy.sh dir_copy
+bashell file_download.sh file_download extra
+bashell file_extract.sh file_extract extra
+bashell file_delete.sh file_delete extra
+bashell file_copy.sh file_copy extra
+bashell dir_create.sh dir_create extra
+bashell dir_delete.sh dir_delete extra
+bashell dir_copy.sh dir_copy extra
 
 bashell test.sh
 bashell firewall.sh
