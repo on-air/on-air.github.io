@@ -14,7 +14,7 @@ var $3 = argument [one + 3]
 var $4 = argument [one + 4]
 var $5 = argument [one + 5]
 
-function ng_setup (program, action, $1, $2, $3, $4, $5) {
+function ng_config (program, action, $1, $2, $3, $4, $5) {
 	if (program === "ng") {
 		if (action === "config") {
 			var file = virtual.ng.dir.concat ("/", $1)
@@ -29,7 +29,7 @@ function ng_setup (program, action, $1, $2, $3, $4, $5) {
 	}
 
 if (argument.length) {
-	ng_setup (program, action, $1, $2, $3, $4, $5)
+	ng_config (program, action, $1, $2, $3, $4, $5)
 	}
 
 define (module).export ({
