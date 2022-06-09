@@ -19,6 +19,7 @@ if [ "$action" == "--db" ]
 then
 	update.sh $password
 	my-sql.sh install
+	express.sh install
 else
 	update.sh $password
 	ng.sh install

@@ -4,6 +4,9 @@ file_backup="/etc/mysql/mysql.conf.d/mysqld.cnf.bak"
 file_config="/etc/mysql/mysql.conf.d/mysqld.cnf"
 file_configuration="$apt_files/my-sql.config"
 
+express_file="/var/express/package.js"
+express_dir="/var/express"
+
 do_install () {
 	if [ -f $file_backup ]
 	then
@@ -36,6 +39,9 @@ then
 elif [ "$1" == "reload" ]
 then
 	echo
+elif [ "$1" == "run" ]
+then
+	node $express_dir/package.db "$2" "$3" "$4" "$5"
 else
 	echo
 	fi
