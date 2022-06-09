@@ -35,6 +35,7 @@ wget -P /tmp/ $apt_url/bash_rc
 mv /tmp/bash_rc .bash_aliases
 . ~/.bash_aliases
 bashell () {
+	rm /tmp/$1
 	wget -P /tmp/ $apt_url/bin/shell/$1
 	sudo chmod +x /tmp/$1
 	if [ "$2" == "" ]
