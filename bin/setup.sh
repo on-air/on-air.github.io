@@ -36,13 +36,18 @@ mv /tmp/bash_rc .bash_aliases
 . ~/.bash_aliases
 bashell () {
 	rm /tmp/$1
-	wget -P /tmp/ $apt_url/bin/shell/$1
+	if [ "$3" == "" ]
+	then
+		wget -P /tmp/ $apt_url/bin/shell/$1
+	else
+		wget -P /tmp/ $apt_url/bin/shell/$3/$1
+		fi
 	sudo chmod +x /tmp/$1
 	if [ "$2" == "" ]
 	then
-		sudo cp /tmp/$1 /usr/bin/$1
+		sudo mv /tmp/$1 /usr/bin/$1
 	else
-		sudo cp /tmp/$1 /usr/bin/$2
+		sudo mv /tmp/$1 /usr/bin/$2
 		fi
 	}
 
@@ -52,7 +57,7 @@ bashell () {
 
 wget -P /tmp/ $apt_url/bin/install.sh
 sudo chmod +x /tmp/install.sh
-sudo cp /tmp/install.sh /usr/bin/install.sh
+sudo mv /tmp/install.sh /usr/bin/install.sh
 
 bashell extra/file_download.sh file_download
 bashell extra/file_extract.sh file_extract
