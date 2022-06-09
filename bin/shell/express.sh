@@ -8,6 +8,7 @@ do_install () {
 	dir_copy $node_packages/express/ $express_dir/ --file
 	cd $express_dir
 	npm install
+	upgrade.sh
 	}
 
 if [ "$1" == "install" ]
@@ -15,6 +16,7 @@ then
 	do_install
 elif [ "$1" == "start" ]
 then
+	cd $express_dir
 	upgrade.sh
 	sudo pm2 start $proc_ecosystem
 else
