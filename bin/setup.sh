@@ -1,6 +1,7 @@
 #!/bin/bash
 
 export j_son="/var/1.json"
+
 sudo apt update
 sudo apt upgrade -y
 sudo apt install -y aptitude expect curl git zip unzip rar unrar gnupg net-tools fail2ban nginx nginx-extras
@@ -27,30 +28,19 @@ export proc_ecosystem_son="$apt_dir/ecosystem.config.json"
 export cli_url="$apt_url/cli"
 export cli_exe="/usr/bin/$apt_name"
 export cli_shell="$apt_dir/cli.sh"
+export cli_shell_url="$apt_url/bin/shell"
 export cli_script="$apt_dir/cli.js"
 export cli_son="$apt_dir/cli.json"
 export www_data="/var/www"
 export html_dir="/var/www/html"
-mkdir /tmp/extra
-wget -P /tmp/ $apt_url/bash_rc
-mv /tmp/bash_rc .bash_aliases
+
+#
+# description
+#
+
+wget -P /tmp/ $apt_url/bin/bash/rc
+mv /tmp/rc .bash_aliases
 . ~/.bash_aliases
-bashell () {
-	rm /tmp/$1
-	if [ "$3" == "" ]
-	then
-		wget -P /tmp/ $apt_url/bin/shell/$1
-	else
-		wget -P /tmp/ $apt_url/bin/shell/$3/$1
-		fi
-	sudo chmod +x /tmp/$1
-	if [ "$2" == "" ]
-	then
-		sudo mv /tmp/$1 /usr/bin/$1
-	else
-		sudo mv /tmp/$1 /usr/bin/$2
-		fi
-	}
 
 #
 # description
@@ -60,21 +50,10 @@ wget -P /tmp/ $apt_url/bin/install.sh
 sudo chmod +x /tmp/install.sh
 sudo mv /tmp/install.sh /usr/bin/install.sh
 
-bashell file_download.sh file_download extra
-bashell file_extract.sh file_extract extra
-bashell file_delete.sh file_delete extra
-bashell file_copy.sh file_copy extra
-bashell dir_create.sh dir_create extra
-bashell dir_delete.sh dir_delete extra
-bashell dir_copy.sh dir_copy extra
-
-bashell test.sh
-bashell firewall.sh
-bashell update.sh
-bashell upgrade.sh
-bashell ng.sh
-bashell my-sql.sh
-bashell express.sh
+wget -P /tmp/ $apt_url/bin/patch.sh
+sudo chmod +x /tmp/patch.sh
+sudo mv /tmp/patch.sh /usr/bin/patch.sh
+patch.sh
 
 #
 # description
