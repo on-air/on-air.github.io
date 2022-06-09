@@ -21,13 +21,13 @@ do_install () {
 		fi
 	}
 
-do_install_firewall () {
+do_install_tcp () {
 	sudo ufw allow 3000/tcp
 	}
 
-if [ "$1" == "install" ] && [ "$2" == "firewall" ]
+if [ "$1" == "install" ] && [ "$2" == "tcp" ]
 then
-	do_install_firewall
+	do_install_tcp
 elif [ "$1" == "install" ]
 then
 	do_install

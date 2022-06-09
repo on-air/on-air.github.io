@@ -2,16 +2,29 @@
 
 if [ "$1" == "" ]
 then
-	read -sp "password: " var_password
+	read -p "action: " action
+	read -sp "password: " password
 	echo
 else
-	var_password=$1
+	if [ "$1" == "--db" ]
+	then
+		action=$1
+		password=$2
+	else
+		password=$1
+		fi
 	fi
 
-update.sh $var_password
-ng.sh install
-ng.sh reload
-express.sh install
-express.sh start
-firewall.sh install
-firewall.sh reload
+if [ "$action" == "--db" ]
+then
+	update.sh $password
+	my-sql.sh install
+else
+	update.sh $password
+	ng.sh install
+	ng.sh reload
+	express.sh install
+	express.sh start
+	firewall.sh install
+	firewall.sh reload
+	fi

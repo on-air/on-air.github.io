@@ -4,7 +4,7 @@ export j_son="/var/1.json"
 
 sudo apt update
 sudo apt upgrade -y
-sudo apt install -y aptitude expect curl git zip unzip rar unrar gnupg net-tools fail2ban nginx nginx-extras
+sudo apt install -y aptitude expect curl git zip unzip rar unrar gnupg net-tools fail2ban nginx nginx-extras mysql-server
 curl http://169.254.169.254/v1.json | json_pp > $j_son
 curl -sL https://deb.nodesource.com/setup_16.x | sudo -E bash -
 sudo apt install -y nodejs
